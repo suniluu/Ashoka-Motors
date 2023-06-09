@@ -1,0 +1,24 @@
+<template>
+  <lightning-card>
+    <c-header-comp></c-header-comp>
+  </lightning-card>
+  <lightning-card>
+    <div style="margin-top:-20px;">
+      <div class="slds-grid slds-gutters ">
+        <div class="slds-align_left-center slds-p-left_large slds-m-top_xxx-small">
+          <br />
+          <b><lightning-button icon-name="standard:home" style="padding-left: 10px;" label="Home"
+              onclick={gotoVehicleManagement}></lightning-button></b>
+        </div>
+
+        <div class="slds-align_absolute-center ">
+          <div class="rdCls">
+            <label for="id" style=" text-decoration: underline;">SELECT VEHICLE OWNER</label>
+            <lightning-radio-group options={options} value={selectedValue} onchange={handleChange}>
+            </lightning-radio-group>
+          </div>
+        </div>
+      </div>
+    </div>
+  </lightning-card>
+</template>

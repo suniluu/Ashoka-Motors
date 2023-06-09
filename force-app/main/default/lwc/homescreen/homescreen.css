@@ -1,0 +1,4 @@
+.slds-icon--small{
+    --sds-c-icon-color-foreground-default: black;
+    padding-top: -2px;
+}

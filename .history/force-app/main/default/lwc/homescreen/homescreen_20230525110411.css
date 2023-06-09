@@ -1,0 +1,52 @@
+
+.container {
+    display: flex;
+    height: 100vh;
+  }
+
+  .toggle-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .toggle-button img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .content {
+    flex: 1;
+    overflow: hidden;
+    transition: margin-left 0.3s ease;
+  }
+
+  .menu-card {
+    height: 100%;
+    margin-right: 1px;
+    overflow-y: auto;
+    transition: width 0.3s ease;
+  }
+
+  .menu-card[variant="Narrow"] {
+    width: 64px;
+  }
+
+  .menu-card[variant="Wide"] {
+    width: 200px;
+  }
+
+  .menu-section {
+    height: calc(100% - 64px);
+    overflow-y: auto;
+  }
+
+  .content-section {
+    height: calc(100% - 64px);
+    padding: 16px;
+    overflow-y: auto;
+  }

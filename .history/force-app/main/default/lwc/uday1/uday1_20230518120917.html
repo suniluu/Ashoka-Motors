@@ -1,0 +1,29 @@
+<template>
+  <lightning-button variant="brand" label="Open Parent Modal" title="Open Parent Modal" onclick={openParentModal}></lightning-button>
+  <template if:true={isParentModalOpen}>
+      <div class="modal-container">
+          <div class="modal-content">
+              <h2>Parent Modal Box</h2>
+              <p>This is the parent modal box content.</p>
+              <c-child-modal-box></c-child-modal-box>
+          </div>
+      </div>
+  </template>
+
+
+
+<!--
+  <template>
+    <lightning-button variant="brand" label="Open Child Modal" title="Open Child Modal" onclick={openChildModal}></lightning-button>
+    <template if:true={isChildModalOpen}>
+        <div class="modal-container">
+            <div class="modal-content">
+                <h2>Child Modal Box</h2>
+                <p>This is the child modal box content.</p>
+            </div>
+        </div>
+    </template>
+</template>
+-->
+
+</template>

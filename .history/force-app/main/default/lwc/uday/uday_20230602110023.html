@@ -1,0 +1,18 @@
+<template>
+  <template if:true={account.data}>
+      <div>
+          <h1>{account.data.fields.Name.value}'s Notes and Attachments</h1>
+          <template for:each={accountNotesAttachments} for:item="item">
+              <div key={item.id}>
+                  <div>{item.title}</div>
+                  <template if:true={item.noteBody}>
+                      <div>{item.noteBody}</div>
+                  </template>
+                  <template if:true={item.attachmentBody}>
+                      <button onclick={handleDownload} data-attachment-id={item.id}>Download</button>
+                  </template>
+              </div>
+          </template>
+      </div>
+  </template>
+</template>

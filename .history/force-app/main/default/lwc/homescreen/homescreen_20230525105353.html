@@ -1,0 +1,96 @@
+<template>
+    <lightning-card>
+        <div>
+            <c-header-comp></c-header-comp>
+        </div>
+    </lightning-card>
+    <lightning-card>
+        <div style="min-width: 225px; border-right: 1px solid #e7e7e7;">
+            <lightning-layout>
+                <lightning-layout-item>
+                    <lightning-vertical-navigation disabled={isMenuHovered}
+                    onmouseenter={handleMenuMouseEnter}
+                    onmouseleave={handleMenuMouseLeave}  selected-item="tutorial" onselect={changeHandleAction}
+                        class="navigation">
+                        <lightning-vertical-navigation-section label="MENU ">
+
+                            <lightning-vertical-navigation-item label="Vehcile Management"
+                                name="vecilemangement"></lightning-vertical-navigation-item>
+                            <lightning-vertical-navigation-item label="Customer Management"
+                                name="CustomerManagement"></lightning-vertical-navigation-item>
+                            <lightning-vertical-navigation-item label="Dealer Management"
+                                name="DealerManagement"></lightning-vertical-navigation-item>
+                                <lightning-vertical-navigation-item label="Car Owner Detail"
+                                name="CarOwnerDetail"></lightning-vertical-navigation-item>
+
+                                <lightning-vertical-navigation-item label="Sales Management"
+                                name="SalesManagement"></lightning-vertical-navigation-item>
+                                <lightning-vertical-navigation-item label="Purchase Management"
+                                name="PurchaseManagement"></lightning-vertical-navigation-item>
+                                <lightning-vertical-navigation-item label="Investments & Profits"
+                                name="InvestmentsProfits"></lightning-vertical-navigation-item>
+                                <lightning-vertical-navigation-item label="Reports"
+                                name="Reports"></lightning-vertical-navigation-item>
+
+                        </lightning-vertical-navigation-section>
+                    </lightning-vertical-navigation>
+                </lightning-layout-item>
+
+                <lightning-layout-item class="slds-align_absolute-center">
+
+                    <template if:true={vecilemangementValue}>
+                        <div>
+                            <c-vehcile-management-screen></c-vehcile-management-screen>
+                        </div>
+                    </template>
+
+                    <template if:true={CustomerManagementValue}>
+                        <div>
+                            <c-customer-management-screen></c-customer-management-screen>
+                        </div>
+                    </template>
+
+                    <template if:true={DealerManagementValue}>
+                        <div>
+                            <c-dealer-management-screen></c-dealer-management-screen>
+                        </div>
+                    </template>
+
+                    <template if:true={CarOwnerDetailValue}>
+                        <div>
+                            <c-dealer-management-screen></c-dealer-management-screen>
+                        </div>
+                    </template>
+
+                    <template if:true={SalesManagementValue}>
+                        <div>
+                            <c-dealer-management-screen></c-dealer-management-screen>
+                        </div>
+                    </template>
+
+                    <template if:true={PurchaseManagementValue}>
+                        <div>
+                            <c-dealer-management-screen></c-dealer-management-screen>
+                        </div>
+                    </template>
+
+
+                    <template if:true={InvestmentsProfitsValue}>
+                        <div>
+                            <c-dealer-management-screen></c-dealer-management-screen>
+                        </div>
+                    </template>
+
+
+                    <template if:true={ReportsValue}>
+                        <div>
+                            <c-dealer-management-screen></c-dealer-management-screen>
+                        </div>
+                    </template>
+
+
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,93 @@
+<template>
+    <lightning-card>
+        <div>
+            <c-header-comp></c-header-comp>
+        </div>
+    </lightning-card>
+   <!--Page Title Header-->
+    <lightning-card>
+        <b><div style="text-align:center;">  
+            <h1 style=" font-size: x-large ; color:rgb(170,26,7)">Purchased Car Details</h1>
+        </div></b> 
+        <!--Back Button -->
+    <div class="slds-col">
+        <span>
+            <br/>
+            <b><lightning-button class="slds-size_1-of-2 slds-float_left" label="<--Back"
+                    onclick={CallMain}></lightning-button></b>
+        </span>
+    </div>
+    <br/>
+        <!--Search Filter of Vehicle Status-->
+        <div class="slds-grid slds-gutters"> 
+            <div class="slds-col">          
+                <span>  
+                    <div class="slds-size_1-of-2 slds-float_right">                
+                   <b>Vehicle Status</b>                                  
+                   <lightning-combobox filedid="id" variant="label-hidden" options={options1} onchange={handlesearch} value={search}>  
+                    </lightning-combobox>
+                </div>  
+                </span>  
+                </div>            
+            </div>
+      <br/>
+      <!--Retriving the Data -->
+        <div class="myTable1">
+            <b><lightning-datatable 
+                 key-field="Id" 
+                 data={Vehicles.data} 
+                 columns={columns}          
+                 sorted-by={sortBy} 
+                 sorted-direction={sortDirection}
+                 onsort={doSorting}
+                 onrowaction={handleRowAction}
+                 hide-checkbox-column="true">
+             </lightning-datatable> </b>
+            </div>
+
+            <lightning-card>
+                <template if:true={isModalOpen}>
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                         <!-- popup body  -->
+                            <lightning-card>
+                                <c-header-comp></c-header-comp>
+                                <div class="slds-align_absolute-center">
+                                    <h1 class="cardClass" style="font-size: 24px;">Vehicle Details</h1>
+                                </div>
+            
+                                  <div class="slds-grid slds-gutters">                                                    
+                                        <div class="slds-size_1-of-2 slds-align_absolute-center">
+                                            <lightning-record-edit-form object-api-name="Product2" record-id={recordId}>
+                                                <b>
+                                                <lightning-output-field field-name={AM_Vehicle_Registration_Number__c}> </lightning-output-field>                                          
+                                                <lightning-input-field field-name={FinalAmount_beforeProfit__c}> </lightning-input-field>
+                                                <lightning-input-field field-name={AM_Purchase_Funded_From__c}> </lightning-input-field>
+                                                <lightning-input-field field-name={AM_Repair_Amount__c}> </lightning-input-field>
+                                                <lightning-input-field field-name={AM_Fuel_Cost__c}> </lightning-input-field>
+                                                <lightning-input-field field-name={AM_Profit__c}> </lightning-input-field>
+                                               </b>
+                                               </lightning-record-edit-form>
+                                               &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;                     
+                                               <div class="slds-align_absolute-center">
+                          
+                                                 <lightning-button label="Cancel" title="Non-primary action" onclick={handleClick1} class="slds-m-left_x-small"></lightning-button>
+                                                <lightning-button variant="brand" label="Save" title="Primary action with lighter look" onclick={saveRecord} class="slds-m-left_x-small"></lightning-button>
+                                              </div>
+                                   
+                                         </div>
+                                </div>
+                            </lightning-card>
+                         <!-- popup footer -->
+                            <footer class="slds-modal__footer">
+                                <button class="slds-button slds-button_neutral" onclick={hideModalBox}>Close</button>
+                            </footer>
+                                             
+                                </div>
+                                          </section>
+                                          <div class="slds-backdrop slds-backdrop_open"></div>
+                                        </template>  
+            </lightning-card>
+
+    </lightning-card>
+</template>

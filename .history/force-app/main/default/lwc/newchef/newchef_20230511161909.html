@@ -1,0 +1,17 @@
+<template>
+    
+  
+    <lightning-card>
+  
+        
+       <lightning-datatable key-field="Id" data={Sales.data} columns={columns}  
+            onrowaction={handleRowAction}
+            sorted-by={sortBy} 
+            sorted-direction={sortDirection}
+            onsort={doSorting} 
+            hide-checkbox-column="true">
+        </lightning-datatable></b>
+        
+  
+    </lightning-card>
+  </template>

@@ -1,0 +1,11 @@
+.container {
+    height: 80vh; /* Set the overall height of the container */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .scrollable-section {
+    height: 100%;
+    overflow: auto;
+    padding: 16px;
+  }

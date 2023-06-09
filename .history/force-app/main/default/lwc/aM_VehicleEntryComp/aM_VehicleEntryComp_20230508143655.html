@@ -1,0 +1,623 @@
+<template>
+    <lightning-card>
+        <c-header-comp></c-header-comp><br />
+        <h1 class="cardClass">VEHICLE DETAILS ENTRY</h1>
+        <div class="progress-indicator-container">
+            <lightning-progress-indicator current-step={currentStep} type="path" variant="path">
+
+                <lightning-progress-step label="Vehicle Information" value="1"
+                    onclick={handleOnStepClick}></lightning-progress-step>
+                <lightning-progress-step label="Vehicle Details" value="2"
+                    onclick={handleOnStepClick}></lightning-progress-step>
+                <lightning-progress-step label="Owner Details" value="3"
+                    onclick={handleOnStepClick}></lightning-progress-step>
+                <lightning-progress-step label="Vehicle Images" value="4"
+                    onclick={handleOnStepClick}></lightning-progress-step>
+                <!--<lightning-progress-step label="Manufactauring Details" value="5" onclick={handleOnStepClick}></lightning-progress-step>-->
+                <lightning-progress-step label="Servicing Details" value="5"
+                    onclick={handleOnStepClick}></lightning-progress-step>
+                <lightning-progress-step label="Subscription & Warranty Details" value="6"
+                    onclick={handleOnStepClick}></lightning-progress-step>
+                <lightning-progress-step label="Documents Details" value="7"
+                    onclick={handleOnStepClick}></lightning-progress-step>
+            </lightning-progress-indicator>
+        </div><br />
+
+        <!--Vehicle Information Tab-->
+        <template if:true={isStepOne}>
+            <div class={sectionClass1}>
+                
+
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item class="slds-p-around_xx-small" size="12">
+                        <lightning-layout>
+
+                            <lightning-layout-item class="slds-p-around_medium" size="6">
+                                <div>
+                                    <lightning-input label="Vehicle Identification Number" name="vehIdNum"
+                                        onchange={handleFieldChange}></lightning-input>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <label for="id">Vehicle Brand</label>
+                                    <lightning-combobox fieldid="id" name="vehBrand" variant="label-hidden"
+                                        options={options1} onchange={handleFieldChange}>
+                                    </lightning-combobox>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <label for="id">Vehicle Model</label>
+                                    <lightning-combobox fieldid="id" name="vehModel" variant="label-hidden"
+                                        options={options2} onchange={handleFieldChange}>
+                                    </lightning-combobox>
+                                </div>
+                                &nbsp;
+                                &nbsp;
+                                <div>
+                                    <label for="id">Vehicle Color</label>
+                                    <lightning-combobox fieldid="id" name="vehColor" variant="label-hidden"
+                                        options={options4} onchange={handleFieldChange}>
+                                    </lightning-combobox>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <label for="id">Fuel Type</label>
+                                    <lightning-combobox fieldid="id" name="fueltype" variant="label-hidden"
+                                        options={options9} onchange={handleFieldChange}>
+                                    </lightning-combobox>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <label for="id">Vehicle Status</label>
+                                    <lightning-combobox fieldid="id" name="vehStatus" variant="label-hidden"
+                                        options={options20} onchange={handleFieldChange}>
+                                    </lightning-combobox>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <lightning-helptext
+                                        content="You have to Provide Purchase Amount in decimal number !"></lightning-helptext>
+                                    <lightning-input label="Purchase Amount" name="purAmt" onchange={handleFieldChange}>
+
+                                    </lightning-input>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <lightning-input label="Purchase Date" name="purDate" type="date"
+                                        onchange={handleFieldChange}></lightning-input>
+                                </div>
+                                &nbsp;
+
+
+                            </lightning-layout-item>
+
+                            <lightning-layout-item class="slds-p-around_medium" size="6">
+                                <div>
+                                    <lightning-input label="Vehicle Registration Number" name="vehResNum"
+                                        onchange={handleFieldChange}></lightning-input>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <label for="id">Vehicle Transmission Type</label>
+                                    <lightning-combobox fieldid="id" name="vehTranType" variant="label-hidden"
+                                        options={options6} onchange={handleFieldChange}>
+                                    </lightning-combobox>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <label for="id">Vehicle Age</label>
+                                    <lightning-combobox fieldid="id" name="vehAge" variant="label-hidden"
+                                        options={options7} onchange={handleFieldChange}>
+                                    </lightning-combobox>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <label for="id">Make Year</label>
+                                    <lightning-combobox fieldid="id" name="makeYear" variant="label-hidden"
+                                        options={options13} onchange={handleFieldChange}>
+                                    </lightning-combobox>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <label for="id">Funded From</label>
+                                    <lightning-combobox fieldid="id" name="fundfrom" variant="label-hidden"
+                                        options={options18} onchange={handleFieldChange}>
+                                    </lightning-combobox>
+                                </div>
+                                &nbsp;
+                                <div>
+
+                                    <lightning-input label="Vehicle Variant" name="vehVariant"
+                                        onchange={handleFieldChange}></lightning-input>
+
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <lightning-helptext
+                                        content="You have to Provide Profit in decimal number !"></lightning-helptext>
+                                    <lightning-input label="Profit" name="profit" onchange={handleFieldChange}>
+
+                                    </lightning-input>
+                                </div>
+                                <!--<div>
+                              <lightning-input label="Repair Cost " name="repCost"  onchange={handleFieldChange}></lightning-input>
+                          </div>-->
+                                &nbsp;
+
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col slds-size_1-of-3">
+                                        <label for="id">Loan Eligible</label>
+                                        <lightning-input type="checkbox" name="vehLoan"
+                                            onchange={handleFieldChange}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-3">
+                                        <label for="id">Repair Required</label>
+                                        <lightning-input type="checkbox" name="vehRepairReq"
+                                            onchange={handleFieldChange}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-3">
+                                        <label for="id">Active</label>
+                                        <lightning-input type="checkbox" name="vehActive"
+                                            onchange={handleFieldChange}></lightning-input>
+                                    </div>
+                                </div>
+                            </lightning-layout-item>
+
+                        </lightning-layout>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <div class="savebtn">
+                    <lightning-button variant="Brand" label="Save" onclick={handleSave}></lightning-button>
+                </div>
+            </div>
+        </template>
+
+
+        <!--Vehicle Details Tab-->
+        <template if:true={isStepTwo}>
+
+            <div class={sectionClass2}>
+
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item class="slds-p-around_xx-small" size="12">
+                        <lightning-layout>
+
+                            <lightning-layout-item class="slds-p-around_medium" size="6">
+
+
+                                <div>
+                                    <label for="id">Vehicle Body Type</label>
+                                    <lightning-combobox fieldid="id" name="vehBody" variant="label-hidden"
+                                        options={options3} onchange={handleFieldChange2}>
+                                    </lightning-combobox>
+                                </div>
+
+                                &nbsp;
+                                <div>
+                                    <label for="id">Vehicle Capacity</label>
+                                    <lightning-combobox fieldid="id" name="vehCap" variant="label-hidden"
+                                        options={options5} onchange={handleFieldChange2}>
+                                    </lightning-combobox>
+                                </div>
+                                &nbsp;
+                                <!--
+                                <div>
+                                    <lightning-input label="Vehicle Top Speed" name="topspeed"
+                                        onchange={handleFieldChange2}></lightning-input>
+                                </div>
+                                &nbsp;-->
+                                <div>
+                                    <lightning-input label="Vehicle Acceleration Time" name="AccTime"
+                                        onchange={handleFieldChange2}></lightning-input>
+                                </div>
+                                &nbsp;
+                                <!--   <div>
+                                    <lightning-input label="Gross Weight" name="grossweight"
+                                        onchange={handleFieldChange2}></lightning-input>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <lightning-input label="Vehicle Width" name="width"
+                                        onchange={handleFieldChange2}></lightning-input>
+                                </div>
+                                &nbsp;-->
+                                <div>
+                                    <lightning-input label="Vehicle Engine Number" name="engNum"
+                                        onchange={handleFieldChange2}></lightning-input>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <lightning-input label="Vehicle Chassis Number" name="chsNum"
+                                        onchange={handleFieldChange2}></lightning-input>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <lightning-input label="Vehicle KMS Travelled" name="kms"
+                                        onchange={handleFieldChange2}></lightning-input>
+                                </div>
+                                <!-- &nbsp;
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <label for="id">Is Accident Met</label>
+                                        <lightning-input type="checkbox" name="VehAccident"
+                                            onchange={handleFieldChange2}></lightning-input>
+                                    </div>
+                                    &nbsp;
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <label for="id">Tool Kit</label>
+                                        <lightning-input type="checkbox" name="vehTools"
+                                            onchange={handleFieldChange2}></lightning-input>
+                                    </div>
+                                </div>-->
+                            </lightning-layout-item>
+
+                            <lightning-layout-item class="slds-p-around_medium" size="6">
+
+                                <!--
+                                <div>
+                                    <lightning-input label="Door Count" name="doorCount" type="Number"
+                                        onchange={handleFieldChange2}></lightning-input>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <label for="id">Door Style Type</label>
+                                    <lightning-combobox fieldid="id" name="doorStyle" variant="label-hidden"
+                                        options={options8} onchange={handleFieldChange2}>
+                                    </lightning-combobox>
+                                </div>
+
+                                &nbsp;-->
+                                <div>
+
+                                    <lightning-input label="Fuel Tank Capacity" name="fueltank"
+                                        onchange={handleFieldChange2}></lightning-input>
+
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <label for="id">Battery Type</label>
+                                    <lightning-combobox fieldid="id" name="batterytype" variant="label-hidden"
+                                        options={options11} onchange={handleFieldChange2}>
+                                    </lightning-combobox>
+                                </div>
+                                &nbsp;
+                                <!-- <div>
+                                    <lightning-input label="Battery Capacity" name="batteryCap"
+                                        onchange={handleFieldChange2}></lightning-input>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <label for="id">Engine Name</label>
+                                    <lightning-combobox fieldid="id" name="engineName" variant="label-hidden"
+                                        options={options12} onchange={handleFieldChange2}>
+                                    </lightning-combobox>
+                                </div>
+                                &nbsp;-->
+                                <div>
+                                    <lightning-input label="Engine Capacity" name="engineCap"
+                                        onchange={handleFieldChange2}></lightning-input>
+                                </div>
+                                &nbsp;
+                                <!--  <div>
+                                    <lightning-input label="Vehicle Height" name="vehHeight"
+                                        onchange={handleFieldChange2}></lightning-input>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <lightning-input label="Vehicle Length" name="vehLength"
+                                        onchange={handleFieldChange2}></lightning-input>
+                                </div>
+
+
+                                &nbsp;
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <label for="id">Pollution Check</label>
+                                        <lightning-input type="checkbox" name="vehPollution"
+                                            onchange={handleFieldChange2}></lightning-input>
+                                    </div>
+                                    &nbsp;
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <label for="id">AC Available</label>
+                                        <lightning-input type="checkbox" name="VehAcavailable"
+                                            onchange={handleFieldChange2}></lightning-input>
+                                    </div>
+                                </div>-->
+
+                            </lightning-layout-item>
+
+                        </lightning-layout>
+
+                    </lightning-layout-item>
+                </lightning-layout>
+                <div class="savebtn">
+                    <lightning-button variant="Brand" label="Save" onclick={handleUpdate2}></lightning-button>
+                </div>
+            </div>
+
+        </template>
+
+        <!--Owner Details Tab-->
+        <template if:true={isStepThree}>
+            <div class={sectionClass3}>
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item class="slds-p-around_xx-small" size="12">
+                        <lightning-layout>
+
+                            <lightning-layout-item class="slds-p-around_medium" size="6">
+                                <div>
+                                    <lightning-input label="Owner Name" name="ownerName"
+                                        onchange={handleFieldChange3}></lightning-input>
+                                </div>
+                                <div>
+                                    <lightning-input label="Owner Phone" name="ownerPhone"
+                                        onchange={handleFieldChange3}></lightning-input>
+                                </div>
+                                <div>
+                                    <lightning-input label="Owner Email" name="ownerEmail" type="email"
+                                        onchange={handleFieldChange3}></lightning-input>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <lightning-input label="Owner Address" name="owneraddress" type="Text"
+                                        onchange={handleFieldChange3}></lightning-input>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <lightning-input label="Owner Adhar Number" name="ownerAdhar" type="text"
+                                        default="0000 0000 0000" onchange={handleFieldChange3}></lightning-input>
+                                </div>
+                                &nbsp;
+
+                            </lightning-layout-item>
+
+                            <lightning-layout-item class="slds-p-around_medium" size="6">
+                                <div>
+                                    <lightning-input label="Target Selling Price" name="targetPrice" type="text"
+                                        onchange={handleFieldChange3}></lightning-input>
+                                </div>
+
+                                <div>
+                                    <lightning-input label="Minimum Selling Price" name="sellPrice" type="text"
+                                        onchange={handleFieldChange3}></lightning-input>
+                                </div>
+                                &nbsp;
+                                <div>
+                                    <label for="id">No of Pre-Owner</label>
+                                    <lightning-combobox fieldid="id" name="preOwner" variant="label-hidden"
+                                        options={options14} onchange={handleFieldChange3}>
+                                    </lightning-combobox>
+                                </div> &nbsp;
+                                <div>
+                                    <label for="id">Owner Type</label>
+                                    <lightning-combobox fieldid="id" name="owntype" variant="label-hidden"
+                                        options={options15} onchange={handleFieldChange3}>
+                                    </lightning-combobox>
+                                </div>&nbsp;
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col slds-size_1-of-3">
+                                        <label for="id">Insurance</label>
+                                        <lightning-input type="checkbox" name="vehInsurance"
+                                            onchange={handleFieldChange3}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-3">
+                                        <label for="id">NOC From Showroom</label>
+                                        <lightning-input type="checkbox" name="vehRTA"
+                                            onchange={handleFieldChange3}></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-3">
+                                        <label for="id"> Single Owner</label>
+                                        <lightning-input type="checkbox" name="vehSingleOwner"
+                                            onchange={handleFieldChange3}></lightning-input>
+                                    </div>
+                                </div>
+
+                            </lightning-layout-item>
+
+                        </lightning-layout>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <div class="savebtn">
+                    <lightning-button variant="Brand" label="Save" onclick={handleUpdate3}></lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!--Vehicle Images Tab-->
+        <template if:true={isStepFour}>
+            <div class={sectionClass4}>
+
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item class="slds-p-around_xx-small" size="12">
+                        <lightning-layout>
+
+                            <lightning-layout-item class="slds-p-around_medium" size="6">
+                                <div>
+                                    <lightning-input type="text" name="vehmain" label="Main Image"
+                                        onchange={handleFieldChange4}> </lightning-input>
+                                </div>
+                                <div>
+                                    <lightning-input type="text" name="vehImg1" label="Exterior Image 1"
+                                        onchange={handleFieldChange4}> </lightning-input>
+                                </div>
+                                <div>
+                                    <lightning-input type="text" name="vehImg2" label="Exterior Image 2"
+                                        onchange={handleFieldChange4}> </lightning-input>
+                                </div>
+
+                            </lightning-layout-item>
+
+                            <lightning-layout-item class="slds-p-around_medium" size="6">
+                                <div>
+                                    <lightning-input type="text" name="vehImg3" label="Interior Image 1"
+                                        onchange={handleFieldChange4}> </lightning-input>
+                                </div>
+                                <div>
+                                    <lightning-input type="text" name="vehImg4" label="Interior Image 2"
+                                        onchange={handleFieldChange4}> </lightning-input>
+                                </div>
+                            </lightning-layout-item>
+
+                        </lightning-layout>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <div class="savebtn">
+                    <lightning-button variant="Brand" label="Save" onclick={handleUpdate4}></lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!--Manufactauring Details Tab
+    <template if:true={isStepFive}>
+        <div class={sectionClass5}>
+          
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item class="slds-p-around_xx-small" size="12">
+                  <lightning-layout >
+                    
+                    <lightning-layout-item class="slds-p-around_medium" size="6">
+                        <div>
+                            <lightning-input label="Manufactured Date" name="ManfDate" type="date" onchange={handleFieldChange5}></lightning-input>
+                        </div>
+                        <div>
+                            <lightning-input label="Stock Code" name="stockCode"  onchange={handleFieldChange5}></lightning-input>
+                        </div>
+                    </lightning-layout-item>
+    
+                    <lightning-layout-item class="slds-p-around_medium" size="6">
+                        <div>
+                            <lightning-input label="Manufacturing Batch Number" name="batchNo"   onchange={handleFieldChange5}></lightning-input>
+                        </div>
+                        <div>
+                            <lightning-input label="Manufacturing Plant Name" name="plantName"   onchange={handleFieldChange5}></lightning-input>
+                        </div>
+                    </lightning-layout-item>
+    
+                  </lightning-layout>
+                </lightning-layout-item>
+            </lightning-layout>
+            <div class="savebtn">
+                <lightning-button variant="Brand" label="Save" onclick={handleUpdate5}></lightning-button>
+            </div>  
+        </div>
+        
+    </template>-->
+
+        <!--Servicing Details Tab-->
+        <template if:true={isStepFive}>
+            <div class={sectionClass6}>
+
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item class="slds-p-around_xx-small" size="12">
+                        <lightning-layout>
+
+                            <lightning-layout-item class="slds-p-around_medium" size="6">
+                                <div>
+                                    <lightning-input label="Active Service Contract Count" name="serviceActive"
+                                        type="number" onchange={handleFieldChange6}></lightning-input>
+                                </div>
+                                <div>
+                                    <label for="id">OEM Service</label>
+                                    <lightning-combobox fieldid="id" name="oemService" variant="label-hidden"
+                                        options={options17} onchange={handleFieldChange6}>
+                                    </lightning-combobox>
+                                </div>
+
+                            </lightning-layout-item>
+
+                            <lightning-layout-item class="slds-p-around_medium" size="6">
+                                <div>
+                                    <lightning-input label="Last Service Date" name="serviceLD" type="date"
+                                        onchange={handleFieldChange6}></lightning-input>
+                                </div>
+                                <div>
+                                    <lightning-input label="Next Service Date" name="serviceND" type="date"
+                                        onchange={handleFieldChange6}></lightning-input>
+                                </div>
+                            </lightning-layout-item>
+
+                        </lightning-layout>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <div class="savebtn">
+                    <lightning-button variant="Brand" label="Save" onclick={handleUpdate6}></lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!--Subscription & Warranty Details Tab-->
+        <template if:true={isStepSix}>
+            <div class={sectionClass7}>
+
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item class="slds-p-around_xx-small" size="12">
+                        <lightning-layout>
+
+                            <lightning-layout-item class="slds-p-around_medium" size="6">
+                                <div>
+                                    <lightning-input label="Active Subscription Count" name="subCount" type="number"
+                                        onchange={handleFieldChange7}></lightning-input>
+                                </div>
+                                <div>
+                                    <lightning-input label="Active Warranty Count" name="warrantyCount" type="number"
+                                        onchange={handleFieldChange7}></lightning-input>
+                                </div>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item class="slds-p-around_medium" size="6">
+                                <div>
+                                    <lightning-input label="Manufacturer Warranty Start Date" name="warStrartDate"
+                                        type="date" onchange={handleFieldChange7}></lightning-input>
+                                </div>
+                                <div>
+                                    <lightning-input label="Manufacturer Warranty End Date" name="warEndDate"
+                                        type="date" onchange={handleFieldChange7}></lightning-input>
+                                </div>
+                            </lightning-layout-item>
+
+                        </lightning-layout>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <div class="savebtn">
+                    <lightning-button variant="Brand" label="Save" onclick={handleUpdate7}></lightning-button>
+                </div>
+            </div>
+        </template>
+        <!--Document Tab-->
+        <template if:true={isStepSeven}>
+
+            <lightning-card>
+                <div class="sectionClass7">
+                    <label for="id" class="label">Attach Document </label>
+                    <lightning-file-upload name="fileUploader" accept={acceptedFormats} record-id={recordId}
+                        onuploadfinished={handleUploadFinished} multiple>
+                    </lightning-file-upload>
+                </div>
+                <div class="docReq">
+                    <h2 style="font-size: medium; font-weight:bold; color:rgb(176, 26, 7);">Documents Required !!!!</h2>
+                    <br />
+                    <p>1. RC front page.</p>
+                    <p>2. RC back page.</p>
+                    <p>3. Insurance front page.</p>
+                    <p>4. Insurance back page.</p>
+                    <p>5. Pollution Control</p>
+                    <p>6. Delivery note.</p>
+                </div>
+            </lightning-card>
+
+        </template>
+
+        <div class="butnClass">
+            <template if:true={isEnablePrev}>
+                <lightning-button variant="destructive" label="Back" onclick={handlePrev}></lightning-button>
+            </template>
+            &ensp;
+            <template if:true={isEnableNext}>
+                <lightning-button label="Next" value={recordId} variant="brand" onclick={handleNext}></lightning-button>
+            </template>
+            <template if:true={isEnableFinish}>
+                <lightning-button label="Finish" variant="brand" onclick={handleFinish}></lightning-button>
+            </template>
+        </div>
+    </lightning-card>
+</template>

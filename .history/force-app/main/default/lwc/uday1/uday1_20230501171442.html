@@ -1,0 +1,13 @@
+<template>
+    <ul>
+      <template for:each={accounts} for:item="account">
+        <li key={account.Id}>
+          <lightning-button label={account.Name} variant="base" value={account.Id} onclick={handleAccountClick}></lightning-button>
+          <template if:true={account.isSelected}>
+            <p class="slds-text-color_warning">{account.Name}</p>
+          </template>
+        </li>
+      </template>
+    </ul>
+  </template>
+  

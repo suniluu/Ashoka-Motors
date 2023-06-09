@@ -1,0 +1,24 @@
+<template>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col">
+            <span>
+
+               <b> <lightning-input class="slds-align_absolute-center"  type="text" label="Enter AM Customer Phone no To Search:" 
+            onchange={handleChange} value={input}  ></lightning-input></b>
+
+            <div class="slds-var-m-around_medium">
+                <lightning-button
+                  variant="brand"
+                  label=" Search AMCustomer Details"
+                  title=" Show Curtain Modal"
+                  onclick={handleShowModal}
+                  class="slds-m-left_x-small"
+                ></lightning-button>
+              </div>
+
+            </span>
+        </div>
+    </div>  
+    <br/>
+
+</template>

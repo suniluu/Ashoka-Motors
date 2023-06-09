@@ -1,0 +1,319 @@
+import { LightningElement,track,api } from 'lwc';
+import getPhoneNum from '@salesforce/apex/AmCustomerDetailController.getPhoneNum';
+import createCST from '@salesforce/apex/AmCustomerDetailController.createCST';
+import converttold from '@salesforce/apex/leadConversion2.createlead';
+export default class Customerexistingandpreferences extends LightningElement 
+
+{
+    @track currentStep = '1';
+    @track options1 = [];
+    @track customer = false;
+    @track isShowModal1 = false;
+    @track options = [];
+    @track firstname;
+    @track lastname;
+    @track Email;
+    @track phone;
+    @track Companyr;
+    @track CustomerStatus;
+    @track isShowModal = false;
+    @track customerstatus = false;
+    @track excustomer = false;
+    @track newcust = false;
+    @api newcustid;
+    @track input;
+    @track isFormVisible = false;
+    @track butval;
+    @track showpage=false;
+    @track data;
+    @api records;
+
+    @track dataid;
+    keyIndex = 0;
+
+
+
+    @track itemList = [
+        {
+            id: 0
+        }
+    ];
+    options = [
+        { label: 'Existing Customer', value: 'Existing Customer' },
+        { label: 'New Customer', value: 'New Customer' }
+    ];
+
+    showModalBox() {
+        this.isShowModal = true;
+    }
+
+    hideModalBox() {
+        this.newcust = false;
+    }
+    indexupdate() {
+        this.index++;
+    }
+    addRow() {
+        ++this.keyIndex;
+        var newItem = [{ id: this.keyIndex }];
+        this.itemList = this.itemList.concat(newItem);
+
+    }
+
+    removeRow(event) {
+        if (this.itemList.length >= 2) {
+            this.itemList = this.itemList.filter(function (element) {
+                return parseInt(element.id) !==
+                    parseInt(event.target.accessKey);
+            });
+        }
+    }
+    handlebrand(event) {
+        this.searchbrand = event.target.value;
+    }
+    handlemodelyear(event) {
+        this.searchmakeyear = event.target.value;
+    }
+    handlecolor(event) {
+        this.searchcolor = event.target.value;
+    }
+    handlefuel(event) {
+        this.searchfueltype = event.target.value;
+    }
+    handletransmission(event) {
+        this.searchtransmissiontype = event.target.value;
+    }
+
+    handleSubmit() {
+    
+        var isVal = true;
+        this.template.querySelectorAll('lightning-input-field').forEach(element => {
+            isVal = isVal && element.reportValidity();
+        });
+        if (isVal) 
+        {
+            this.template.querySelectorAll('lightning-record-edit-form').forEach(element => {
+                element.submit();
+            });
+            
+            this.hideModalBox();
+            this.hideModalBox1();
+            this.handleNavigation();
+        }
+        
+    }
+    
+    handleNavigation() {
+        alert('nav');
+        let compDefinition = {
+            componentDef: "c:disaplaycars",
+            attributes: 
+            {
+                customerid: this.newcustid
+            }
+        };
+     
+        // Base64 encode the compDefinition JS object
+        let encodedCompDef = btoa(JSON.stringify(compDefinition));
+        this[NavigationMixin.Navigate]({
+            type: "standard__webPage",
+            attributes: {
+                url: "/one/one.app#" + encodedCompDef
+            }
+        });
+    }
+    
+   
+   
+    
+    
+    
+
+
+    /*@wire(getObjectInfo, { objectApiName: lead_obj })
+      objectInfo;
+      
+      @wire(getPicklistValues, { recordTypeId: '$objectInfo.data.defaultRecordTypeId', fieldApiName: CustomerStatus})
+      typePicklistValues({error, data}) {
+          if(data) {
+              this.options1 = data.values;
+          }
+          }
+         */
+
+    handleUserNameChange1(event) {
+
+        this.firstname = event.target.value;
+
+    }
+
+
+    handleUserNameChange2(event) {
+
+        this.lastname = event.target.value;
+
+    }
+
+
+    handleUserNameChange3(event) {
+        this.Email = event.target.value;
+
+    }
+    handleUserNameChange4(event) {
+
+        this.phone = event.target.value;
+
+    }
+    handleUserNameChange5(event) {
+
+
+        this.Companyr = event.target.value;
+
+    }
+    handleUserNameChange6(event) {
+
+
+        this.CustomerStatus = event.target.value;
+
+    }
+    CreateRec() {
+
+
+
+        InsertCustomerRec({ lastname: this.lastname, phone: this.phone, email: this.Email })
+            .then(result => {
+                this.newcustid = result;
+
+                alert(this.newcustid);
+
+
+            })
+            if (this.currentStep === "1") {
+                this.currentStep = "2";
+            }
+
+
+    }
+    handleChange(event) {
+        this.selectedValue = event.target.value;
+        if (this.selectedValue == 'Existing Customer') {
+            this.excustomer = true;
+            this.newcust = false;
+        }
+        else {
+            this.newcust = true;
+            this.excustomer = false;
+        }
+    }
+    showModalBox1() {
+        this.isShowModal1 = true;
+    }
+    hideModalBox1() {
+        this.isShowModal1 = false;
+    }
+
+
+    handleOnStepClick(event) {
+        this.currentStep = event.target.value;
+    }
+   
+    get isStepOne() {
+        return this.currentStep === "1";
+    }
+
+    get isStepTwo() {
+        return this.currentStep === "2";
+    }
+
+    get isEnableNext() {
+        return this.currentStep != "1";
+    }
+    get isEnableNext() {
+        return this.currentStep != "2";
+    }
+
+    handleChange(event)
+    {
+        this.input=event.target.value;
+    }
+   
+    handleShowModal(event)
+    {
+         getPhoneNum({ph:this.input})
+
+        .then(result => {
+            this.data=result;
+            
+            alert(this.data);
+            this.records=this.data;
+            
+            this.record = this.records[0].Id; 
+            // Set record to the ID of the first record in the data array
+           
+        this.dataid = this.record;
+        
+        this.isFormVisible = true;
+
+        this.template.querySelector('[data-id="curtainModal"]').style.width = "100%";
+
+        })
+        .catch(error => {
+            this.isFormVisible = true;
+            alert(this.isFormVisible);
+            const toastEvent = new ShowToastEvent({
+                title: 'Error!',
+                message: 'Invalid Phone number. Please enter a valid Phone number.',
+                variant: 'error'
+            });
+            this.dispatchEvent(toastEvent);
+        });
+
+      
+    
+    }
+    closeModal() 
+    {
+        this.template.querySelector('[data-id="curtainModal"]').style.width = "0%";
+    }
+    
+    handlekick()
+    {
+        createCST({cid:this.dataid})
+
+        .then(() => {
+            const toastEvent = new ShowToastEvent({
+                title: 'Success!',
+                message: 'Record updated successfully.',
+                variant: 'success'
+            });
+            this.dispatchEvent(toastEvent);
+        })
+        .catch(error => {
+            const toastEvent = new ShowToastEvent({
+                title: 'Error!',
+                message: error.body.message,
+                variant: 'error'
+            });
+            this.dispatchEvent(toastEvent);
+        });
+    }
+    handlekick1(event)
+    {
+        this.butval=event.target.value;
+        alert('uday');
+        alert(this.butval);
+        converttold({leadId:this.butval})
+
+      
+
+    }
+    handle(){
+        this.showpage=true;
+    }
+
+
+
+
+
+
+}

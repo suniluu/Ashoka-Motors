@@ -1,0 +1,53 @@
+.cardClass{
+   
+    font-family:  Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: x-small;
+    text-align: center;
+    color: rgb(170,26,7);
+   
+}
+
+.progress-indicator-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.butnClass{
+    text-align: right;
+    padding-right: 10px;
+}
+.savebtn{
+    text-align: center;
+}
+.sectionClass7{
+    text-align: center;
+}
+.label{
+    text-align: center;
+    font-weight: bold;
+    color: rgb(170,26,7);
+}
+.docReq{
+    padding-left: 10px;
+    font-size: medium;
+    font-family: 'Courier New', Courier, monospace;
+}
+:host{
+    
+    --slds-c-button-brand-color-background:rgb(13, 121, 39);
+    --slds-c-button-brand-color-background-hover:rgb(13, 121, 39);
+    --slds-c-button-radius-border:90px;
+    --slds-c-button-brand-color-border:White;
+    --slds-c-button-brand-text-color:White;
+
+    --slds-c-button-destructive-color-background:rgb(176, 26, 7);
+    --slds-c-button-destructive-color-background-hover:rgb(176, 26, 7);
+    --slds-c-button-destructive-border:90px;
+    --slds-c-button-destructive-color-border:White;
+    --slds-c-button-destructive-text-color:White;
+    
+}
+.hidden-field {
+    display: none;
+}

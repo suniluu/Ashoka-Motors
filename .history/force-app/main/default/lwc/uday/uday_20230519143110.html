@@ -1,0 +1,60 @@
+<div style="height: 200px; overflow-y: auto;">
+    <lightning-layout-item size="3" padding="around-small">
+      <b>Customer Preferences</b>
+      <div class="toggle-button" onclick={handleClick}>
+        <div class="inner-button" data-active={isActive}></div>
+      </div>
+      <div></div>
+      <lightning-card>
+        <div class="slds-size_2-of-2 slds-box">
+          <lightning-card title="CAR BRANDS">
+            <lightning-button label="Search" variant="brand" onclick={handlesearch}></lightning-button>
+            <div class="slds-grid slds-gutters">
+              <!-- Car brand images here -->
+            </div>
+            <br />
+            <div class="slds-grid slds-gutters">
+              <!-- Car brand images here -->
+            </div>
+            <br />
+            <div class="slds-grid slds-gutters">
+              <!-- Car brand images here -->
+            </div>
+            <br />
+            <div class="slds-grid slds-gutters">
+              <!-- Car brand images here -->
+            </div>
+          </lightning-card>
+        </div>
+      </lightning-card>
+    </lightning-layout-item>
+  </div>
+  
+  <div style="height: 200px; overflow-y: auto;">
+    <lightning-layout-item size="3" padding="around-small">
+      <div class="slds-box">
+        <b>Brand</b>
+        <lightning-layout multiple-rows="true" vertical-align="stretch">
+          <lightning-layout-item size="5">
+            <b>Model Year</b>
+            <lightning-combobox fieldid="id" class="my-input" options={options1} onchange={handleKeymakeyear} label="Model Year" variant="label-hidden" dropdown-alignment="auto">
+            </lightning-combobox>
+          </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout multiple-rows="true" vertical-align="stretch">
+          <!-- Other input fields here -->
+        </lightning-layout>
+      </div>
+      <br /><br />
+      <div class="slds-col slds-size_1-of-8">
+        <div style="height: 12rem">
+          <div class="slds-box">
+            <div class="slds-color-picker slds-color-picker_swatches-only">
+              <!-- Color picker options here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </lightning-layout-item>
+  </div>
+  

@@ -1,0 +1,25 @@
+<template>
+  
+    <template if:true={showItemCategoryPopup}>
+      <div class="popup-container">
+        <div class="popup-content">
+          <lightning-input type="search" label="Search Item Category" onchange={handleSearchItemCategory}></lightning-input>
+        </div>
+      </div>
+    </template>
+    <!-- Rest of the template -->
+  
+    <lightning-datatable
+    key-field="Id"
+    data={filteredOrders}
+    columns={columns}
+    onsort={handleSort}
+    sorted-column={sortedColumn}
+    onrowaction={handleRowAction}
+    sorted-direction={sortedDirection}
+    onheaderaction={handleHeaderAction}
+    hide-checkbox-column="true">
+  </lightning-datatable>
+  </template>
+  
+  

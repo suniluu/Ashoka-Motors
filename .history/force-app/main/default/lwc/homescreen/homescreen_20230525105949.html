@@ -1,0 +1,63 @@
+<template>
+    <div class="container">
+      <button class="toggle-button" onclick={toggleMenu}>
+        <img src={menuIcon} alt="Toggle Menu" />
+      </button>
+  
+      <div class="content">
+        <lightning-card class="menu-card" variant="Narrow">
+          <lightning-layout>
+            <lightning-layout-item size="3" class="menu-section">
+              <lightning-vertical-navigation selected-item={selectedItem} onselect={changeHandleAction} class="navigation">
+                <lightning-vertical-navigation-section label="MENU">
+                  <lightning-vertical-navigation-item label="Vehicle Management" name="vehiclemanagement"></lightning-vertical-navigation-item>
+                  <lightning-vertical-navigation-item label="Customer Management" name="customermanagement"></lightning-vertical-navigation-item>
+                  <lightning-vertical-navigation-item label="Dealer Management" name="dealermanagement"></lightning-vertical-navigation-item>
+                  <lightning-vertical-navigation-item label="Car Owner Detail" name="carownerdetail"></lightning-vertical-navigation-item>
+                  <lightning-vertical-navigation-item label="Sales Management" name="salesmanagement"></lightning-vertical-navigation-item>
+                  <lightning-vertical-navigation-item label="Purchase Management" name="purchasemanagement"></lightning-vertical-navigation-item>
+                  <lightning-vertical-navigation-item label="Investments & Profits" name="investmentsprofits"></lightning-vertical-navigation-item>
+                  <lightning-vertical-navigation-item label="Reports" name="reports"></lightning-vertical-navigation-item>
+                </lightning-vertical-navigation-section>
+              </lightning-vertical-navigation>
+            </lightning-layout-item>
+  
+            <lightning-layout-item size="9" class="content-section">
+              <template if:true={selectedItem === 'vehiclemanagement'}>
+                <c-vehicle-management-screen></c-vehicle-management-screen>
+              </template>
+  
+              <template if:true={selectedItem === 'customermanagement'}>
+                <c-customer-management-screen></c-customer-management-screen>
+              </template>
+  
+              <template if:true={selectedItem === 'dealermanagement'}>
+                <c-dealer-management-screen></c-dealer-management-screen>
+              </template>
+  
+              <template if:true={selectedItem === 'carownerdetail'}>
+                <c-car-owner-detail-screen></c-car-owner-detail-screen>
+              </template>
+  
+              <template if:true={selectedItem === 'salesmanagement'}>
+                <c-sales-management-screen></c-sales-management-screen>
+              </template>
+  
+              <template if:true={selectedItem === 'purchasemanagement'}>
+                <c-purchase-management-screen></c-purchase-management-screen>
+              </template>
+  
+              <template if:true={selectedItem === 'investmentsprofits'}>
+                <c-investments-profits-screen></c-investments-profits-screen>
+              </template>
+  
+              <template if:true={selectedItem === 'reports'}>
+                <c-reports-screen></c-reports-screen>
+              </template>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-card>
+      </div>
+    </div>
+  </template>
+  

@@ -1,0 +1,41 @@
+.cardClass{
+   
+    font-family:  Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: x-large;
+    text-align: center;
+    color: rgb(170,26,7);
+   
+}
+.popup-container {
+  position: absolute;
+  top: 4rem;
+  left: 0;
+  z-index: 1;
+  width: 200px; /* Adjust the width as per your requirement */
+  height: 60px; /* Adjust the height as per your requirement */
+  background-color: white;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+}
+
+.popup-content {
+  padding: 1rem;
+}
+
+.close-icon {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  cursor: pointer;
+  padding: 5px;
+  background-color: transparent;
+  z-index: 2; /* Adjust the z-index as per your requirement */
+}
+
+.close-icon lightning-icon {
+  fill: #666;
+  width: 5px; /* Adjust the width as per your requirement */
+  height: 5px; /* Adjust the height as per your requirement */
+}
+
