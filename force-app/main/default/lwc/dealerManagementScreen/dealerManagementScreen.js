@@ -21,7 +21,7 @@ export default class DealerManagementScreen extends NavigationMixin(LightningEle
     editDealer()
     {
         let compDefinition = {
-            componentDef: "c:searchEditDealerComponent",
+            componentDef: "c:editSearchDealer",
             attributes: {
                
             }

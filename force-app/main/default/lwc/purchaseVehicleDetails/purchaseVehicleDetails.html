@@ -1,16 +1,26 @@
 <template>
+    <!--Header-->
     <lightning-card>
         <c-header-comp></c-header-comp>
         </lightning-card>
         <lightning-card>
         <b>
-            <div style="text-align:center;">
-                <h1 style="font-size: x-large; color:rgb(170,26,7)">
-                <!-- Home Button -->
-                    <lightning-button icon-name="standard:home" class="slds-float_left slds-p-left_medium " 
-                    label="Home" onclick={CallMain} style="font-size:small">
-                    </lightning-button>  
-                    PURCHASED CAR DETAILS</h1>
+            <!--Home Button-->
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                    <span  class="slds-p-left_medium">
+                      <lightning-icon icon-name="custom:custom107" size="x-medium" class="slds-size_1-of-9" onclick={CallMain} title="custom107">
+                      </lightning-icon>
+                   
+                      <b><label style="font-size: x-medium; padding: 0 3px ;vertical-align: bottom"  onclick={CallMain} >HOME</label></b>
+                    </span>
+                </div>
+                  <!--Page Header-->
+                <div class="slds-col">
+                    <span>
+                      <b><h1  style="font-size:x-large ; color: rgb(170, 26, 7) ;" >PURCHASED CAR DETAILS</h1></b>
+                    </span>
+                </div>
             </div>
         </b>
         <br/>
@@ -60,8 +70,7 @@
                 ></lightning-datatable>
             </b>
         </div>
-
-       
+         <!--Vehicle No  popup-->
         <template if:true={isModalOpen}>
             <div class="slds-backdrop slds-backdrop_open"></div>
             <section

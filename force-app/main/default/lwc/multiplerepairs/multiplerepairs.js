@@ -106,4 +106,8 @@ export default class Multiplerepairs extends NavigationMixin(LightningElement) {
             }
         });
     }
+    connectedCallback()
+    {
+        this.repairsId=this.repairId;
+    }
 }

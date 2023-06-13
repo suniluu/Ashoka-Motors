@@ -21,9 +21,14 @@
                     <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
 
                         <lightning-card>
-                            <b><label for="id" style="font-size: medium;">Search Vehicle Number</label>
-                                <lightning-input fieldid="id" type="search" onchange={handleSearchNumber} value={vehNum}
-                                    placeholder="Search Vehicle Number here"></lightning-input></b>
+                            <b> <div class="slds-box">  
+                                <c-trail-lookup-cmp lookup-label="Search Vehicle Number" object-api-name="Product2" icon-name="standard:account"  
+                                  onrecordselection={onAccountSelection}></c-trail-lookup-cmp>  
+                              </div>  
+                           
+                              <!--  <lightning-input fieldid="id" label="Search Vehicle Number" type="search" onchange={handleSearchNumber} value={vehNum} required
+                                placeholder="Search Vehicle Number here" style="font-size: medium;"></lightning-input>-->
+                            </b>
                             <br />
                             <lightning-button class="slds-align_absolute-center" label="Delete Vehicle" variant="brand"
                                 onclick={handlesearch}></lightning-button>

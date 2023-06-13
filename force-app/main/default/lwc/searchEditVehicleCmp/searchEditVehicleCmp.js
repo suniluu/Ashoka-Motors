@@ -1,7 +1,6 @@
 import { LightningElement ,track,api,wire} from 'lwc';
 
 import searchProduct from '@salesforce/apex/VehiclequickcompController.searchProduct';
-import getAccountOptions from '@salesforce/apex/VehiclequickcompController.getAccountOptions';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import { NavigationMixin } from 'lightning/navigation';
@@ -13,12 +12,16 @@ import {loadStyle} from "lightning/platformResourceLoader";
 export default class EditDeleteVehicleCmp extends NavigationMixin(LightningElement)
 {
     @track isModalOpen=true;
+    @track isUpdateBox=false;
     @track vehNum;
     @api objectApiName;
    @track recordId;
 
    @track selectedValue;
    @track picklistOptions = [];
+   
+   @track vehName;  
+   @track vehRecordId;  
 
     connectedCallback() 
     {
@@ -28,11 +31,39 @@ export default class EditDeleteVehicleCmp extends NavigationMixin(LightningEleme
     closeModal() 
     {
         this.isModalOpen = false;
+        this.handleback();
     }
     handleSearchNumber(event)
     {
         this.vehNum=event.target.value;
     }
+
+   
+    onAccountSelection(event){  
+    this.vehName = event.detail.selectedValue;  
+    this.vehRecordId = event.detail.selectedRecordId;  
+    }  
+
+    handlesearch(){
+        searchProduct({vehNumber:this.vehName})
+        .then(result => {
+            this.recordId = result;
+            if(this.recordId){
+                this.isModalOpen = false;
+                this.isUpdateBox=true;
+             }
+         })
+         .catch(error => {
+             this.dispatchEvent(
+                 new ShowToastEvent({
+                     title: 'Error',
+                     message: 'Error in verified vehicle Information: ' + error.body.message,
+                     variant: 'error'
+                 })
+             );
+         });
+    }
+    /*
     handlesearch()
     {
         searchProduct({vehNumber:this.vehNum})
@@ -40,6 +71,7 @@ export default class EditDeleteVehicleCmp extends NavigationMixin(LightningEleme
             this.recordId = result;
             if(this.recordId){
                 this.isModalOpen = false;
+                this.isUpdateBox=true;
              }
          })
          .catch(error => {
@@ -54,7 +86,7 @@ export default class EditDeleteVehicleCmp extends NavigationMixin(LightningEleme
          
         
         
-    }
+    }*/
 
     handleSuccess()
     {

@@ -1,13 +1,14 @@
 public class AmVehicleDealerController 
 {
-   // public static string recordType ='012Do000000YFK1';
+    // public static string recordType ='012Do000000YFK1';
     /* VEHICLE INFORMATION */
     @AuraEnabled(cacheable=false)
-    public static id insertVehicleInformation(String vehName,String vehRegNum,String vehBrand,String vehModel,
-                                              String vehFuel,String vehColor,String vehTrans,String vehAge,String vehMake,
-                                             Boolean vehLoan,Decimal vehDealAmt,Date vehPurDate,String vehFunded,Decimal vehProfit,
-												string vehVariant,date vehRegDate,Boolean vehRenew,Boolean vehBank,
-                                              string odoStatus ,Decimal fuelPrice, Integer vehKms,string kiloWatt)
+    public static id insertVehicleInformation(String vehName,String vehBrand,String vehModel,String vehFuel,
+                                              String vehColor,String vehTrans,String vehAge,String vehMake,
+                                              Decimal vehDealAmt,Date vehPurDate,String vehFunded,
+                                              Decimal vehProfit,string vehVariant,date vehRegDate,
+                                              string odoStatus , Integer vehKms,string kiloWatt,Boolean vehLoan,
+                                              Boolean vehRenew)
     {
         Product2 car = new Product2();
         car.Name = vehName;
@@ -19,21 +20,18 @@ public class AmVehicleDealerController
         car.AM_Transmission_Type__c = vehTrans;
         car.AM_Vehicle_Age__c = vehAge;
         car.AM_Make_Year__c = vehMake;
-       car.AM_NOC_From_Bank__c = vehBank;
-        //car.IsActive = vehActive;
-        car.AM_Loan_Applicable__c = vehLoan;
         car.AM_Dealer_Price__c = vehDealAmt;
         car.AM_Purchase_Date__c = vehPurDate;
         car.AM_Purchase_Funded_From__c = vehFunded;
         car.AM_Profit__c = vehProfit;
-        //car.AM_Vehicle_Status__c=vehStatus;
         car.AM_Variant__c = vehVariant;
         car.AM_Kms_Driven__c=vehKms;
         car.AM_Vehicle_Registration_Date__c = vehRegDate;
-        car.AM_Vehicle_Renew__c=vehRenew;
         car.AM_Odometer_Status__c=odoStatus;
-        car.AM_Fuel_Cost__c = fuelPrice;
         car.AM_KiloWatt__c=kiloWatt;
+        car.AM_Loan_Applicable__c=vehLoan;
+        car.AM_Vehicle_Renew__c=vehRenew;
+        
         insert car;
         return car.id;
         
@@ -62,13 +60,12 @@ public class AmVehicleDealerController
     
     /* Dealer DETAILS */
     @AuraEnabled
-    public static void updateDealerDetails(Id productId, String ownerName, String ownerPhone, String ownerEmail, String preOwner, 
-                                           String vehOwnType, String owneraddress, String ownerAdhar, 
-                                           Boolean vehInsurance, Boolean vehRTA, 
-                                           string dealerName,string dealerPhone,string dealerEmail )
+    public static void updateDealerDetails(Id productId, String ownerName, String ownerPhone, String ownerEmail, 
+                                           String preOwner, 
+                                           String vehOwnType, String owneraddress, String ownerAdhar,
+                                           string dealerName,string dealerPhone,string dealerEmail,
+                                           Boolean vehInsurance, Boolean vehRTA,Boolean vehBank)
     {
-        
-        
         
         Product2 car = new Product2();
         car.Id=productId;
@@ -76,66 +73,70 @@ public class AmVehicleDealerController
         car.AM_Owner_Phone__c = ownerPhone;
         car.AM_Owner_Email__c = ownerEmail;
         car.AM_No_of_Pre_Owner__c = preOwner;
-       // car.AM_Single_Owner__c = vehSingleOwner;
         car.AM_Vehicle_Owner_Type__c = vehOwnType;
-        car.AM_Insurance__c = vehInsurance;
-       car.AM_NOC_From_RTA__c = vehRTA;
-        // car.AM_Target_Price__c = targetPrice;
         car.AM_Owner_Address__c = owneraddress;
         car.AM_Owner_Adhar_Number__c = ownerAdhar;
         car.AM_Dealer_Name__c= dealerName;
         car.AM_Dealer_Phone__c = dealerPhone;
         car.AM_Dealer_Email__c = dealerEmail;
+        car.AM_Insurance__c = vehInsurance;
+        car.AM_NOC_From_RTA__c = vehRTA;
+        car.AM_NOC_From_Bank__c=vehBank;
         
         update car;
     }
     
     /* OWNER DETAILS 
-    @AuraEnabled
-    public static void updateOwnerDetails(Id productId, String ownerName, String ownerPhone, String ownerEmail, String preOwner, 
-                                          Boolean vehSingleOwner,String vehOwnType, String owneraddress, String ownerAdhar, 
-                                          Boolean vehInsurance, Boolean vehRTA, string dealName,string dealPhone,string dealEmail )
-    {
-        
-        
-        
-        Product2 car = new Product2();
-        car.Id=productId;
-        car.AM_Owner_Name__c = ownerName;
-        car.AM_Owner_Phone__c = ownerPhone;
-        car.AM_Owner_Email__c = ownerEmail;
-        car.AM_No_of_Pre_Owner__c = preOwner;
-        car.AM_Single_Owner__c = vehSingleOwner;
-        car.AM_Vehicle_Owner_Type__c = vehOwnType;
-        car.AM_Insurance__c = vehInsurance;
-       car.AM_NOC_From_RTA__c = vehRTA;
-        car.AM_Owner_Address__c = owneraddress;
-        car.AM_Owner_Adhar_Number__c = ownerAdhar;
-        car.AM_Dealer_Name__c= dealName;
-        car.AM_Dealer_Phone__c = dealPhone;
-        car.AM_Dealer_Email__c = dealEmail;
-        
-        update car;
-    }*/
-    
-    
+@AuraEnabled
+public static void updateOwnerDetails(Id productId, String ownerName, String ownerPhone, String ownerEmail, String preOwner, 
+Boolean vehSingleOwner,String vehOwnType, String owneraddress, String ownerAdhar, 
+Boolean vehInsurance, Boolean vehRTA, string dealName,string dealPhone,string dealEmail )
+{
+
+
+
+Product2 car = new Product2();
+car.Id=productId;
+car.AM_Owner_Name__c = ownerName;
+car.AM_Owner_Phone__c = ownerPhone;
+car.AM_Owner_Email__c = ownerEmail;
+car.AM_No_of_Pre_Owner__c = preOwner;
+car.AM_Single_Owner__c = vehSingleOwner;
+car.AM_Vehicle_Owner_Type__c = vehOwnType;
+car.AM_Insurance__c = vehInsurance;
+car.AM_NOC_From_RTA__c = vehRTA;
+car.AM_Owner_Address__c = owneraddress;
+car.AM_Owner_Adhar_Number__c = ownerAdhar;
+car.AM_Dealer_Name__c= dealName;
+car.AM_Dealer_Phone__c = dealPhone;
+car.AM_Dealer_Email__c = dealEmail;
+
+update car;
+}*/
+
     // Vehicle Images Method
+    
     @AuraEnabled
     public static Void uploadVehicleImages(Id productId,String vehImg1, String vehImg2, String vehImg3,
                                            String vehImg4,string vehmain)
     { 
-         AM_Vehicle_Image__c veh = [select id from AM_Vehicle_Image__c where AM_Vehicle__c=:productId];
+        AM_Vehicle_Image__c veh = [select id from AM_Vehicle_Image__c where AM_Vehicle__c=:productId];
         veh.AM_Vehicle_Exterior_Image_1__c =vehImg1;
         veh.AM_Vehicle_Exterior_Image_2__c=vehImg2;
         veh.AM_Vehicle_Interior_Image_1__c=vehImg3;
         veh.AM_Vehicle_Interior_Image_2__c=vehImg4;
-        veh.AM_Vehicle_Main_Image__c=vehmain;
-            
+        
+        if(vehmain!='')
+        {
+            veh.AM_Vehicle_Main_Image__c=vehmain;
+        }
+        
         update veh;
     }
     /* SERVICING DETAILS */
     @AuraEnabled
-    public static void updateServicingDetails(Id productId,Decimal serActive, Boolean serOEM,Date serLastDate,Date serNextDate)
+    public static void updateServicingDetails(Id productId,Decimal serActive, Boolean serOEM,
+                                             Date serLastDate,Date serNextDate)
     {
         
         
@@ -150,7 +151,8 @@ public class AmVehicleDealerController
     }
     /* SUBSCRIPTION AND WARRANTY */
     @AuraEnabled
-    public static void updateSubWarrantyDetails(Id productId,Decimal subCount, Decimal subWarranty,Date subStartDate,Date subEndDate)
+    public static void updateSubWarrantyDetails(Id productId,Decimal subCount, Decimal subWarranty,
+                                                Date subStartDate,Date subEndDate)
     {
         
         Product2 car = new Product2();
@@ -165,26 +167,26 @@ public class AmVehicleDealerController
     public static List<Account> searchDealerAccount(String cmpName) {
         List<Account> accs = new List<Account>();
         accs = [SELECT Id, Name, Phone, Email__c,Company__c FROM Account 
-                    WHERE RecordTypeId = '012Do000000YFJy' AND Company__c = :cmpName];
+                WHERE RecordTypeId = '012Do000000YFJy' AND Company__c = :cmpName];
         return accs;
     }
     
-   @AuraEnabled(cacheable=false)
-   public static Id uploadAttachment(Id productId, String fileName, String fileContents, String contentType) {
-    Attachment attachment = new Attachment(
-        ParentId = productId,
-        Name = fileName,
-        ContentType = contentType,
-        Body = EncodingUtil.base64Decode(fileContents)
-    );
-    
-    try {
-        insert attachment;
-        return attachment.Id;
-    } catch (Exception e) {
-        throw new AuraHandledException('Error uploading document: ' + e.getMessage());
+    @AuraEnabled(cacheable=false)
+    public static Id uploadAttachment(Id productId, String fileName, String fileContents, String contentType) {
+        Attachment attachment = new Attachment(
+            ParentId = productId,
+            Name = fileName,
+            ContentType = contentType,
+            Body = EncodingUtil.base64Decode(fileContents)
+        );
+        
+        try {
+            insert attachment;
+            return attachment.Id;
+        } catch (Exception e) {
+            throw new AuraHandledException('Error uploading document: ' + e.getMessage());
+        }
     }
-}
-
+    
     
 }

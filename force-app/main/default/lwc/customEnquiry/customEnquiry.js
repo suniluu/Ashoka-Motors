@@ -1,6 +1,6 @@
 import { LightningElement ,track,wire} from 'lwc';
-import getAllCustomerEnquirys from '@salesforce/apex/CustomerEnquiry.getAllCustomerEnquirys';
-import deleteSelectCustomerEnquirys from '@salesforce/apex/CustomerEnquiry.deleteSelectCustomerEnquirys';
+import getAllCustomerEnquirys from '@salesforce/apex/CustomerEnquiryController.getAllCustomerEnquirys';
+import deleteSelectCustomerEnquirys from '@salesforce/apex/CustomerEnquiryController.deleteSelectCustomerEnquirys';
 
 
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';

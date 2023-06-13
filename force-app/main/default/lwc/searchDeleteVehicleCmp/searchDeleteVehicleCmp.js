@@ -15,6 +15,9 @@ export default class SearchDeleteVehicleCmp extends NavigationMixin(LightningEle
     @api objectApiName;
     recordId;
 
+    @track vehName;  
+    @track vehRecordId;  
+ 
     connectedCallback() 
     {
       loadStyle(this, noHeader)
@@ -23,17 +26,21 @@ export default class SearchDeleteVehicleCmp extends NavigationMixin(LightningEle
     closeModal() 
     {
         this.isModalOpen = false;
+        this.handleback();
     }
     handleSearchNumber(event)
     {
         this.vehNum=event.target.value;
     }
-    handlesearch()
-    {
-       
-        searchProduct({vehNumber:this.vehNum})
-        .then((result) => 
-        {
+
+    onAccountSelection(event){  
+        this.vehName = event.detail.selectedValue;  
+        this.vehRecordId = event.detail.selectedRecordId;  
+    }  
+    
+    handlesearch(){
+        searchProduct({vehNumber:this.vehName})
+        .then((result) => {
             alert(result);
             this.recordId=result;
             this.handleDelete();
@@ -46,14 +53,32 @@ export default class SearchDeleteVehicleCmp extends NavigationMixin(LightningEle
     }
     handleDelete()
     {
+     
        deleteVehicle({productId:this.recordId})
+       const recordNumber = this.vehName;
         this.dispatchEvent(
             new ShowToastEvent({
                 title: 'Success',
-                message: 'Vehicle delete successfully with Number',
+                message: 'Vehicle delete successfully with Number  '+ recordNumber,
                 variant: 'success',
             })
         )
+        let compDefinition = {
+            componentDef: "c:homescreen",
+            attributes: {
+            }
+        };
+     
+        // Base64 encode the compDefinition JS object
+        let encodedCompDef = btoa(JSON.stringify(compDefinition));
+        this[NavigationMixin.Navigate]({
+            type: "standard__webPage",
+            attributes: {
+                url: "/one/one.app#" + encodedCompDef
+            }
+        });
+    }
+    handleback(){
         let compDefinition = {
             componentDef: "c:homescreen",
             attributes: {

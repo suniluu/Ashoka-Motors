@@ -1,7 +1,7 @@
 public class VehiclequickcompController
 {
     @AuraEnabled
-    public static void insertVehicleRecord(string vehName,string vehBrand,string vehModel,string vehMake,
+    public static id insertVehicleRecord(string vehName,string vehBrand,string vehModel,string vehMake,
                                               boolean vehRepair,decimal vehPurAmt,decimal prfAmt,
                                               string vehVariant,date vehPurDate,date vehRegDate,decimal vehKms)
         
@@ -13,7 +13,7 @@ public class VehiclequickcompController
         veh.AM_Brand__c= vehBrand;
         veh.AM_Vehicle_Model__c=vehModel;
         veh.AM_Make_Year__c=vehMake;
-        veh.AM_Repair_Required__c = vehRepair;
+        veh.AM_Repair_Required__c =vehRepair;
         veh.AM_Purchase_Amount__c=vehPurAmt;
         veh.AM_Purchase_Date__c = vehPurDate;
         veh.AM_Profit__c=prfAmt;
@@ -22,18 +22,20 @@ public class VehiclequickcompController
         veh.AM_Kms_Driven__c=vehKms;
         
         insert veh;
+        return veh.Id;
     }   
-     @AuraEnabled(cacheable=false)
-    public static id gotoVehicleRepairDetail(id productId){
+    @AuraEnabled(cacheable=false)
+    public static id gotoVehicleRepairDetail(id productId)
+    {
         AM_Vehicle_Repairs__c vehRepair=[Select ID from AM_Vehicle_Repairs__c
                                          where AM_Vehicle_Number__c=:productId ];
         return vehRepair.id;
     }
       
-     @AuraEnabled(Cacheable=true)
-    public static id insertDealerVehicleRecord(string vehName,string vehBrand,string vehModel,string vehMake,
-                                              boolean vehRepair,decimal dealAmt,decimal prfAmt,
-                                              string vehVariant,date vehPurDate,date vehRegDate,decimal vehKms)
+    @AuraEnabled(cacheable=false)
+    public static void insertDealerVehicleRecord(string vehName,string vehBrand,string vehModel,string vehMake,
+                                             	decimal dealAmt,decimal prfAmt,string vehVariant,date vehPurDate,
+                                                 date vehRegDate,decimal vehKms)
         
     {
         
@@ -43,7 +45,6 @@ public class VehiclequickcompController
         veh.AM_Brand__c= vehBrand;
         veh.AM_Vehicle_Model__c=vehModel;
         veh.AM_Make_Year__c=vehMake;
-        veh.AM_Repair_Required__c = vehRepair;
         veh.AM_Dealer_Price__c  =dealAmt;
         veh.AM_Purchase_Date__c = vehPurDate;
         veh.AM_Profit__c=prfAmt;
@@ -52,8 +53,6 @@ public class VehiclequickcompController
         veh.AM_Kms_Driven__c=vehKms;
         
         insert veh;
-        return veh.id;
-        
     }   
     @AuraEnabled(cacheable=true)
     public static id searchProduct(String vehNumber) 
@@ -79,12 +78,12 @@ public class VehiclequickcompController
                                          where AM_Vehicle_Number__c=:productId ];
         return vehRepair.id;
     }
-    
+    /*
    @AuraEnabled
    public static List<Product2> getAccountOptions() {
     
     List<Product2> prodts = [SELECT Name FROM Product2];
     
     return prodts;
-   }
+   }*/
 }

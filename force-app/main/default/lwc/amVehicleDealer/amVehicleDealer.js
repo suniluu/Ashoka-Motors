@@ -38,7 +38,7 @@ import { NavigationMixin } from 'lightning/navigation';
 export default class AmVehicleDealer extends  NavigationMixin(LightningElement) 
 
 {
-    
+    @track showKilowattField=false;
     @track currentStep = '1';
     @track options1 = [];
     @track options2 = [];
@@ -78,10 +78,10 @@ export default class AmVehicleDealer extends  NavigationMixin(LightningElement)
     @track vehDealAmt='';
     @track vehVariant='';
     @track vehRegDate='';
-    @track vehRenew='';
+    @track VehRenew='';
     @track odoStatus='';
     @track kiloWatt='';
-    @track fuelPrice='';
+    //@track fuelPrice='';
 
     @track vehBody='';
     @track vehCap='';
@@ -130,29 +130,11 @@ export default class AmVehicleDealer extends  NavigationMixin(LightningElement)
     @track phonenum='';
     @track data=[];
     @track records=[];
-    @track dealerName;
-    @track dealerPhone;
-    @track dealerEmail;
+    @track dealerName='';
+    @track dealerPhone='';
+    @track dealerEmail='';
     
 
-    /*Dealer Base 
-    get options() {
-        return [
-            { label: 'Existing Dealer', value: 'dealer' },
-            { label: 'New Dealer', value: 'customer' },
-        ];
-    }
-     handleChange(event) {
-        this.selectedValue = event.detail.value;
-        if (this.selectedValue === 'dealer') {
-            this.exDealer = true;
-            this.newDealer = false;
-        } else if (this.selectedValue === 'customer') {
-            this.exDealer = false;
-            this.newDealer = true;
-        }
-    }
-    */
     connectedCallback() 
     {
       loadStyle(this, noHeader)
@@ -163,12 +145,25 @@ export default class AmVehicleDealer extends  NavigationMixin(LightningElement)
         const fieldName = event.target.name;
         const value = event.target.value;
        
-        
-        if (fieldName === 'phonenum') {
+        if (fieldName === 'phonenum') 
+        {
             this.phonenum = value;
         } 
         
     }
+    handleDealerNameInformation(event)
+    {
+        this.dealerName=event.target.value;
+    }
+    handleDealerPhoneInformation(event)
+    {
+        this.dealerPhone=event.target.value;
+    }
+    handleDealerEmailInformation(event)
+    {
+        this.dealerEmail=event.target.value;
+    }
+
     //Dealer Base
     handleSearch()
     {
@@ -193,38 +188,59 @@ export default class AmVehicleDealer extends  NavigationMixin(LightningElement)
                     })
                 );
         });
-             
-         
     }
-    @track showKilowattField=false;
-
-    handlebrandChange(event) {
+   
+    handlebrandChange(event) 
+    {
         let key = this.slaFieldData.controllerValues[event.target.value];
         this.options2 = this.slaFieldData.values.filter(opt => opt.validFor.includes(key));
-    
-       }
-        
-    handleModelChange(event) {
-        this.vehModel =event.target.value;
-    }
 
-    handleFieldChange(event) {
+        const fieldName = event.target.name;
+        const value = event.target.value;
+        if (fieldName === 'vehBrand') 
+        {
+            this.vehBrand = value;
+        } 
+    }
+        
+    handleModelChange(event) 
+    {
+        const fieldName = event.target.name;
+        const value = event.target.value;
+        if (fieldName === 'vehModel') 
+        {
+            this.vehModel = value;
+        }  
+    }
+   
+    handleFieldChange(event) 
+    {
         const fieldName = event.target.name;
         const value = event.target.value;
        
-        if (fieldName === 'vehResNum') {
+        if (fieldName === 'vehResNum') 
+        {
             this.vehResNum = value;
-        } 
-        if (fieldName === 'fueltype') {
-            
-            if (value === 'Electric') {
+        }
+        if (fieldName === 'fueltype') 
+        {
+            this.fueltype = value;
+            if (value === 'Electric') 
+            {
               this.showKilowattField = true;
-            } else {
+            } 
+            else 
+            {
               this.showKilowattField = false;
             }
-          }
-          if (fieldName === 'kiloWatt') {
+        }
+        if (fieldName === 'kiloWatt') 
+        {
             this.kiloWatt = value;
+        }
+        if (fieldName === 'vehColor') 
+        {
+            this.vehColor = value;
         } 
         if (fieldName === 'vehTranType') {
             this.vehTranType = value;
@@ -247,13 +263,6 @@ export default class AmVehicleDealer extends  NavigationMixin(LightningElement)
          if (fieldName === 'vehDealAmt') {
             this.vehDealAmt = value;
         } 
-         if (fieldName === 'vehLoan') {
-            this.vehLoan = event.target.checked;
-        }
-        if (fieldName === 'vehRenew') {
-            this.vehRenew = event.target.checked;
-        }
-       
         if (fieldName === 'vehVariant') {
             this.vehVariant = value;
         }
@@ -265,14 +274,20 @@ export default class AmVehicleDealer extends  NavigationMixin(LightningElement)
         }
         if (fieldName === 'kms') {
             this.kms = value;
+        }
+        if (fieldName === 'vehLoan') 
+        {
+            this.vehLoan = event.target.checked;
+           // console.log(this.vehLoan);
         } 
-        if (fieldName === 'fuelPrice') {
-            this.fuelPrice = value;
-        } 
-        
+        if (fieldName === 'vehRenew') 
+        {
+            this.vehRenew = event.target.checked;
+        }
     }
 
-    handleFieldChange2(event) {
+    handleFieldChange2(event) 
+    {
         const fieldName = event.target.name;
         const value = event.target.value;
        
@@ -297,13 +312,11 @@ export default class AmVehicleDealer extends  NavigationMixin(LightningElement)
         if (fieldName === 'chsNum') {
             this.chsNum = value;
         }
-         
-        
-        
     }
 
 
-    handleFieldChange3(event) {
+    handleFieldChange3(event) 
+    {
         const fieldName = event.target.name;
         const value = event.target.value;
        
@@ -319,7 +332,7 @@ export default class AmVehicleDealer extends  NavigationMixin(LightningElement)
         if (fieldName === 'preOwner') {
             this.preOwner = value;
         } 
-         if (fieldName === 'vehInsurance') {
+        if (fieldName === 'vehInsurance') {
             this.vehInsurance = event.target.checked;
         } 
          if (fieldName === 'vehRTA') {
@@ -337,22 +350,15 @@ export default class AmVehicleDealer extends  NavigationMixin(LightningElement)
         }
         if (fieldName === 'ownerAdhar') {
             this.ownerAdhar = value;
-        }/*
-        if (fieldName === 'dealName') {
-            this.dealName = value;
         }
-        if (fieldName === 'dealPhone') {
-            this.dealPhone = value;
-        }
-        if (fieldName === 'dealEmail') {
-            this.dealEmail = value;
-        }*/
     }
 
-    handleFieldChange4(event) {
+    handleFieldChange4(event) 
+    {
         const fieldName = event.target.name;
         const value = event.target.value;
-        if (fieldName === 'vehmain') {
+        if (fieldName === 'vehmain') 
+        {
             this.vehmain = value;
         } 
         if (fieldName === 'vehImg1') {
@@ -371,26 +377,35 @@ export default class AmVehicleDealer extends  NavigationMixin(LightningElement)
     }
 
 
-    handleFieldChange6(event) {
+    handleFieldChange6(event) 
+    {
         const fieldName = event.target.name;
         const value = event.target.value;
        
-        if (fieldName === 'serviceActive') {
+        if (fieldName === 'serviceActive') 
+        {
             this.serviceActive = value;
+            console.log(this.serviceActive);
         } 
-        if (fieldName === 'oemService') {
+        if (fieldName === 'oemService') 
+        {
             this.oemService =  event.target.checked;
-        }
-       
-        if (fieldName === 'serviceLD') {
-            this.serviceLD = value;
+            console.log(this.oemService);
         } 
-        if (fieldName === 'serviceND') {
+        if (fieldName === 'serviceLD') 
+        {
+            this.serviceLD = value;
+            console.log(this.serviceLD);
+        } 
+        if (fieldName === 'serviceND') 
+        {
             this.serviceND = value;
+            console.log(this.serviceND);
         }
     }
 
-    handleFieldChange7(event) {
+    handleFieldChange7(event) 
+    {
         const fieldName = event.target.name;
         const value = event.target.value;
        
@@ -578,29 +593,35 @@ export default class AmVehicleDealer extends  NavigationMixin(LightningElement)
     }    
 
     
-    handleNext(){
-        if(this.currentStep === "1"){
+    handleNext()
+    {
+        if(this.currentStep === "1")
+        {
             this.handleSave();
             this.currentStep = "2";
         }
-        else if(this.currentStep === "2"){
+        else if(this.currentStep === "2")
+        {
             this.handleUpdate2();
             this.currentStep = "3";
         }
-        else if(this.currentStep === "3"){
-            this.handleDealerUpdate3();
+        else if(this.currentStep === "3")
+        {
+            this.handleUpdate3();
             this.currentStep = "4";
         }
         else if(this.currentStep === "4"){
-            this.handleUpdate4();
+            
+            this.handleDealerUpdate4();
             this.currentStep = "5";
         }
-        else if(this.currentStep === "5"){
-            this.handleUpdate6();
+        else if(this.currentStep === "5")
+        {
             this.currentStep = "6";
         }
-        else if(this.currentStep === "6"){
-            this.handleUpdate7();
+        else if(this.currentStep === "6")
+        {
+            this.handleUpdate6();
             this.currentStep = "7";
         }
         
@@ -608,7 +629,8 @@ export default class AmVehicleDealer extends  NavigationMixin(LightningElement)
  
     handlePrev(){
        
-        if(this.currentStep == "7"){
+        if(this.currentStep == "7")
+        {
             this.currentStep = "6";
         }
         else
@@ -616,30 +638,51 @@ export default class AmVehicleDealer extends  NavigationMixin(LightningElement)
             this.currentStep = "5";
         }
         else
-        if(this.currentStep == "5"){
+        if(this.currentStep == "5")
+        {
             this.currentStep = "4";
         }
-        else if(this.currentStep == "4"){
+        else if(this.currentStep == "4")
+        {
             this.currentStep = "3";
         }
-        else if(this.currentStep == "3"){
+        else if(this.currentStep == "3")
+        {
             this.currentStep = "2";
         }
-        else if(this.currentStep == "2"){
+        else if(this.currentStep == "2")
+        {
             this.currentStep = "1";
         }
     }
 
  
-    handleFinish(){
+    handleFinish()
+    {
         this.handleUpdate7();
-       // this.currentStep = "1";
     }
+    handleSave() 
+    {
+        console.log(this.vehResNum);
+        console.log(this.vehBrand);
+        console.log(this.vehModel);
+        console.log(this.fueltype);
+        console.log(this.vehColor);
+        console.log(this.vehTranType);
+        console.log(this.vehAge);
+        console.log(this.makeYear);
+        console.log(this.vehDealAmt);
+        console.log(this.purDate);
+        console.log(this.fundfrom);
+        console.log(this.profit);
+        console.log(this.vehVariant);
+        console.log(this.vehRegDate);
+        console.log(this.odoStatus);
+        console.log(this.kms);
+        console.log(this.kiloWatt);
+        console.log(this.vehLoan);
+        console.log(this.vehRenew);
 
-   
-
-handleSave() {
-    
     insertVehicleInformation({ 
         vehName:this.vehResNum,
         vehBrand:this.vehBrand,
@@ -649,18 +692,17 @@ handleSave() {
         vehTrans:this.vehTranType,
         vehAge:this.vehAge,
         vehMake:this.makeYear,
-        vehLoan:this.vehLoan,
-        vehFunded:this.fundfrom,
-        vehPurDate:this.purDate,
-        vehProfit:this.profit,
         vehDealAmt:this.vehDealAmt,
+        vehPurDate:this.purDate,
+        vehFunded:this.fundfrom,
+        vehProfit:this.profit,
         vehVariant:this.vehVariant,
         vehRegDate: this.vehRegDate,
-        vehRenew :this.vehRenew,
+        odoStatus:this.odoStatus,
         vehKms: this.kms,
-        fuelPrice: this.fuelPrice,
         kiloWatt:this.kiloWatt,
-        odoStatus:this.odoStatus
+        vehLoan:this.vehLoan,
+        vehRenew:this.vehRenew
     })
     .then(result => {
        
@@ -686,10 +728,17 @@ handleSave() {
     
 }
 
-handleUpdate2() {
-   // alert('da');
-  //  alert(this.recordId );
-    
+handleUpdate2() 
+{
+    console.log(this.recordId);
+    console.log(this.vehBody);
+    console.log(this.vehCap);
+    console.log(this.fueltank);
+    console.log(this.batterytype);
+    console.log(this.engineCap);
+    console.log(this.engNum);
+    console.log(this.chsNum);
+
     updateVehicleDetails({
         productId: this.recordId,
         vehBody: this.vehBody,
@@ -720,26 +769,76 @@ handleUpdate2() {
         );
     });
 }
-handleDealerUpdate3(){
-   // alert('deal');
-   // alert(this.recordId );
-    updateDealerDetails({
+
+handleUpdate3() 
+{
+uploadVehicleImages({
+    productId: this.recordId,
+    vehmain:this.vehmain,
+    vehImg1: this.vehImg1,
+    vehImg2:this.vehImg2,
+    vehImg3:this.vehImg3,
+    vehImg4: this.vehImg4
+})
+.then(() => {
+    this.dispatchEvent(
+        new ShowToastEvent({
+            title: 'Success',
+            message: 'Successfully upload vehicle images',
+            variant: 'success'
+        })
+    );
+})
+.catch(error => {
+    this.dispatchEvent(
+        new ShowToastEvent({
+            title: 'Error',
+            message: 'Error in  uploading vehicle Images: ' + error.body.message,
+            variant: 'error'
+        })
+    );
+});
+   
+}
+
+handleDealerUpdate4()
+{
+ 
+        console.log(this.recordId);
+        console.log(this.ownerName);
+        console.log(this.ownerPhone);
+        console.log(this.ownerEmail);
+        console.log(this.preOwner);
+        console.log(this.owntype);
+        console.log(this.owneraddress);
+        console.log(this.ownerAdhar);
+        
+        console.log(this.dealerName);
+        console.log(this.dealerPhone);
+        console.log(this.dealerEmail);
+
+        
+        console.log(this.vehInsurance);
+        console.log(this.vehRTA);
+        console.log(this.vehBank);
+   
+
+    updateDealerDetails
+    ({
         productId: this.recordId,
         ownerName: this.ownerName, 
         ownerPhone: this.ownerPhone,
         ownerEmail: this.ownerEmail,
         preOwner: this.preOwner,
-        
-        vehInsurance: this.vehInsurance,
-        vehRTA: this.vehRTA,
-        vehBank: this.vehBank,
         vehOwnType:this.owntype,
-        
         owneraddress : this.owneraddress,
         ownerAdhar : this.ownerAdhar,
         dealerName:this.dealerName,
         dealerPhone:this.dealerPhone,
-        dealerEmail:this.dealerEmail
+        dealerEmail:this.dealerEmail,
+        vehInsurance:this.vehInsurance,
+        vehRTA:this.vehRTA,
+        vehBank:this.vehBank,
     })
     .then(() => {
         this.dispatchEvent(
@@ -760,88 +859,22 @@ handleDealerUpdate3(){
         );
     });
 }
-    /*
-    handleUpdate3() {
-     //   alert('da3');
-   // alert(this.recordId );
-        
-        updateOwnerDetails({ 
-            productId: this.recordId,
-            ownerName: this.ownerName, 
-            ownerPhone: this.ownerPhone,
-            ownerEmail: this.ownerEmail,
-            preOwner: this.preOwner,
-            vehSingleOwner: this.vehSingleOwner,
-            vehDoctor: this.vehDoctor,
-            vehInsurance: this.vehInsurance,
-            vehRTA: this.vehRTA,
-            vehOwnType:this.owntype,
-            owneraddress : this.owneraddress,
-            ownerAdhar : this.ownerAdhar,
-            dealName:this.dealName,
-            dealPhone:this.dealPhone,
-            dealEmail:this.dealEmail
-        })
-        .then(() => {
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Success',
-                    message: 'Successfully updated vehicle owner detail',
-                    variant: 'success'
-                })
-            );
-        })
-        .catch(error => {
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Error',
-                    message: 'Error in  updating vehicle owner detail entry: ' + error.body.message,
-                    variant: 'error'
-                })
-            );
-        });
-    }*/
 
-    handleUpdate4() {
-     //   alert('da4');
-   // alert(this.recordId );
-    uploadVehicleImages({
-        productId: this.recordId,
-        vehmain:this.vehmain,
-        vehImg1: this.vehImg1,
-        vehImg2:this.vehImg2,
-        vehImg3:this.vehImg3,
-        vehImg4: this.vehImg4
-    })
-    .then(() => {
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Success',
-                message: 'Successfully upload vehicle images',
-                variant: 'success'
-            })
-        );
-    })
-    .catch(error => {
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Error',
-                message: 'Error in  uploading vehicle Images: ' + error.body.message,
-                variant: 'error'
-            })
-        );
-    });
-       
-    }
+   
 
 
-    handleUpdate6() {
-    //    alert('da6');
-  //  alert(this.recordId );
-        
+    handleUpdate6() 
+    {
+        console.log(this.recordId);
+        console.log(this.serviceActive);
+        console.log(this.oemService);
+        console.log(this.serviceLD);
+        console.log(this.serviceND);
+
+
         updateServicingDetails({ 
             productId: this.recordId,
-            serActive:this.serviceActive, 
+            serActive:this.serviceActive,
             serOEM:this.oemService, 
             serLastDate:this.serviceLD, 
             serNextDate:this.serviceND
@@ -855,20 +888,9 @@ handleDealerUpdate3(){
                 })
             );
         })
-        .catch(error => {
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Error',
-                    message: 'Error in  updating Servicing details: ' + error.body.message,
-                    variant: 'error'
-                })
-            );
-        });
     }
 
     handleUpdate7() {
-     //   alert('d7');
-   // alert(this.recordId );
         
         updateSubWarranty({ 
             productId: this.recordId,
@@ -898,22 +920,6 @@ handleDealerUpdate3(){
         });
     }
 
-  /*
-    handleUploadFinished(event) {
-        // Get the list of uploaded files
-        const uploadedFiles = event.detail.files;
-        let uploadedFileNames = '';
-        for(let i = 0; i < uploadedFiles.length; i++) {
-            uploadedFileNames += uploadedFiles[i].name + ', ';
-        }
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Success',
-                message: uploadedFiles.length + ' Files uploaded Successfully: ' + uploadedFileNames,
-                variant: 'success',
-            }),
-        );
-    }*/
     CallVehicleEntry(event)
     {
         let compDefinition = {

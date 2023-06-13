@@ -17,12 +17,6 @@ import Battery_Type from '@salesforce/schema/Product2.AM_Battery_Type__c';
 import Make_Year from '@salesforce/schema/Product2.AM_Make_Year__c';
 import fundedFrom from '@salesforce/schema/Product2.AM_Purchase_Funded_From__c';
 import Vehicle_Owner_Type from '@salesforce/schema/Product2.AM_Vehicle_Owner_Type__c';
-//import AM_OEM_Service from '@salesforce/schema/Product2.AM_OEM_Service__c';
-//import Engine_Name from '@salesforce/schema/Product2.AM_Engine_Name__c';
-//import AM_Condition_Type from '@salesforce/schema/Product2.AM_Condition_Type__c';
-//import KMS_Travelled from '@salesforce/schema/Product2.KMS_Travelled__c';
-//import Vehicle_Status from '@salesforce/schema/Product2.AM_Vehicle_Status__c';
-//import Door_Style from '@salesforce/schema/Product2.AM_Door_Style_Type__c';
 
 import insertVehicleInformation from '@salesforce/apex/AmVehicleEntryController.insertVehicleInformation'; 
 import updateVehicleDetails from '@salesforce/apex/AmVehicleEntryController.updateVehicleDetails'; 
@@ -30,8 +24,7 @@ import updateOwnerDetails from '@salesforce/apex/AmVehicleEntryController.update
 import uploadVehicleImages from '@salesforce/apex/AmVehicleEntryController.uploadVehicleImages';  
 import updateServicingDetails from '@salesforce/apex/AmVehicleEntryController.updateServicingDetails'; 
 import updateSubWarranty from '@salesforce/apex/AmVehicleEntryController.updateSubWarrantyDetails';
-//import updateOdometerDetails from '@salesforce/apex/AmVehicleEntryController.updateOdometerDetails'; 
-//import updateManufactureDetails from '@salesforce/apex/AmVehicleEntryController.updateManufactureDetails';
+
 import uploadAttachment from '@salesforce/apex/AmVehicleEntryController.uploadAttachment';
 
 import noHeader from '@salesforce/resourceUrl/NoHeader';
@@ -98,7 +91,6 @@ export default class AM_VehicleEntryComp extends NavigationMixin(LightningElemen
     @track fueltank='';
     @track batterytype='';
     @track engineCap='';
-    //@track AccTime='';
 
     @track ownerName='';
     @track ownerPhone='';
@@ -110,9 +102,6 @@ export default class AM_VehicleEntryComp extends NavigationMixin(LightningElemen
     @track vehInsurance='';
     @track vehRTA='';
     @track vehBank='';
-    //@track vehSingleOwner='';
-    //@track vehDoctor='';
-    // @track targetPrice='';
 
 
     @track vehmain='';
@@ -141,16 +130,30 @@ export default class AM_VehicleEntryComp extends NavigationMixin(LightningElemen
     @track showKilowattField = false;
 
     
-    handlebrandChange(event) {
+    handlebrandChange(event) 
+    {
         let key = this.slaFieldData.controllerValues[event.target.value];
         this.options2 = this.slaFieldData.values.filter(opt => opt.validFor.includes(key));
 
+        const fieldName = event.target.name;
+        const value = event.target.value;
+        if (fieldName === 'vehBrand') {
+            this.vehBrand = value;
+        } 
+        
     }
-    handleModelChange(event) {
-        this.vehModel =event.target.value;
+    handleModelChange(event) 
+    {
+        const fieldName = event.target.name;
+        const value = event.target.value;
+        if (fieldName === 'vehModel') 
+        {
+            this.vehModel = value;
+        }  
     }
 
-    handleFieldChange(event) {
+    handleFieldChange(event) 
+    {
         
         const fieldName = event.target.name;
         const value = event.target.value;
@@ -162,42 +165,56 @@ export default class AM_VehicleEntryComp extends NavigationMixin(LightningElemen
         if (fieldName === 'vehColor') {
             this.vehColor = value;
         } 
-        if (fieldName === 'fueltype') {
-            
-            if (value === 'Electric') {
+        if (fieldName === 'fueltype') 
+        {
+            this.fueltype = value;
+            if (value === 'Electric') 
+            {
               this.showKilowattField = true;
-            } else {
+            } 
+            else 
+            {
               this.showKilowattField = false;
             }
         }
-        if (fieldName === 'kiloWatt') {
+        if (fieldName === 'kiloWatt') 
+        {
             this.kiloWatt = value;
         }
-        if (fieldName === 'fuelPrice') {
+        if (fieldName === 'fuelPrice') 
+        {
             this.fuelPrice = value;
         }
-        if (fieldName === 'purAmt') {
+        if (fieldName === 'purAmt') 
+        {
             this.purAmt = value;
         } 
-        if (fieldName === 'purDate') {
+        if (fieldName === 'purDate') 
+        {
             this.purDate = value;
         } 
-        if (fieldName === 'odoStatus') {
+        if (fieldName === 'odoStatus') 
+        {
             this.odoStatus = value;
         }
-        if (fieldName === 'vehRegDate') {
+        if (fieldName === 'vehRegDate') 
+        {
             this.vehRegDate = value;
         }
-        if (fieldName === 'vehTranType') {
+        if (fieldName === 'vehTranType') 
+        {
             this.vehTranType = value;
         }
-        if (fieldName === 'vehAge') {
+        if (fieldName === 'vehAge') 
+        {
             this.vehAge = value;
         }
-        if (fieldName === 'makeYear') {
+        if (fieldName === 'makeYear') 
+        {
             this.makeYear = value;
         } 
-        if (fieldName === 'fundfrom') {
+        if (fieldName === 'fundfrom') 
+        {
             this.fundfrom = value;
         }
         if (fieldName === 'vehVariant') {
@@ -249,10 +266,6 @@ export default class AM_VehicleEntryComp extends NavigationMixin(LightningElemen
         if (fieldName === 'engineCap') {
             this.engineCap = value;
         }
-        /* 
-        if (fieldName === 'AccTime') {
-            this.AccTime = value;
-        } */
     }
 
     handleFieldChange3(event) {
@@ -377,9 +390,6 @@ export default class AM_VehicleEntryComp extends NavigationMixin(LightningElemen
     get isStepSeven() {
         return this.currentStep === "7";
     }
- 
- 
- 
     get isEnableNext() {
         return this.currentStep != "7";
     }
@@ -522,7 +532,6 @@ export default class AM_VehicleEntryComp extends NavigationMixin(LightningElemen
             this.options18 = data.values;
         }
     }
-    
     handleNext(){
         if(this.currentStep === "1"){
             this.handleSave();
@@ -541,11 +550,12 @@ export default class AM_VehicleEntryComp extends NavigationMixin(LightningElemen
             this.currentStep = "5";
         }
         else if(this.currentStep === "5"){
-            this.handleUpdate6();
+            
             this.currentStep = "6";
         }
-        else if(this.currentStep === "6"){
-            this.handleUpdate7();
+        else if(this.currentStep === "6")
+        {
+            this.handleUpdate6();
             this.currentStep = "7";
         }
         
@@ -553,37 +563,67 @@ export default class AM_VehicleEntryComp extends NavigationMixin(LightningElemen
  
     handlePrev(){
        
-        if(this.currentStep == "7"){
+        if(this.currentStep == "7")
+        {
             this.currentStep = "6";
         }
         else
-        if(this.currentStep == "6"){
+        if(this.currentStep == "6")
+        {
             this.currentStep = "5";
         }
         else
-        if(this.currentStep == "5"){
+        if(this.currentStep == "5")
+        {
             this.currentStep = "4";
         }
-        else if(this.currentStep == "4"){
+        else if(this.currentStep == "4")
+        {
             this.currentStep = "3";
         }
-        else if(this.currentStep == "3"){
+        else if(this.currentStep == "3")
+        {
             this.currentStep = "2";
         }
-        else if(this.currentStep == "2"){
+        else if(this.currentStep == "2")
+        {
             this.currentStep = "1";
         }
     }
 
  
-    handleFinish(){
+    handleFinish()
+    {
         this.handleUpdate7();
-       // this.currentStep = "1";
     }
 
    
 
-handleSave() {
+handleSave() 
+{
+        console.log('Hello');
+        console.log(this.vehResNum);
+        console.log(this.vehBrand);
+        console.log(this.vehModel);
+        console.log(this.fueltype);
+        console.log(this.vehColor);
+        console.log(this.vehTranType);
+        console.log(this.vehAge);
+        console.log(this.makeYear);
+        console.log(this.vehRepairReq);
+        console.log(this.vehLoan);
+        console.log(this.purAmt);
+        console.log(this.purDate);
+        console.log(this.fundfrom);
+        console.log(this.profit);
+        console.log(this.vehVariant);
+        console.log(this.vehRegDate);
+        console.log(this.vehRenew);
+        console.log(this.vehRegDate);
+        console.log(this.odoStatus);
+        console.log(this.fuelPrice);
+        console.log(this.kms);
+        console.log(this.kiloWatt);
     
     insertVehicleInformation({ 
         vehName: this.vehResNum,
@@ -596,17 +636,18 @@ handleSave() {
         vehMake:this.makeYear,
         vehRepair:this.vehRepairReq,
         vehLoan:this.vehLoan,
-        vehFunded:this.fundfrom,
-        vehPurDate:this.purDate,
-        vehProfit:this.profit,
         vehPurAmt:this.purAmt,
+        vehPurDate:this.purDate,
+        vehFunded:this.fundfrom,
+        vehProfit:this.profit,
         vehVariant:this.vehVariant,
         vehRegDate: this.vehRegDate,
         vehRenew :this.vehRenew,
-        vehKms: this.kms,
+        odoStatus:this.odoStatus,
         fuelPrice: this.fuelPrice,
+        vehKms: this.kms,
         kiloWatt:this.kiloWatt,
-        odoStatus:this.odoStatus
+        
     })
     .then(result => {
        // alert(result);
@@ -632,16 +673,23 @@ handleSave() {
     
 }
 
-handleUpdate2() {
-   // alert('da');
-   // alert(this.recordId );
-    
+handleUpdate2() 
+{
+    console.log('Hello');
+    console.log(this.recordId);
+    console.log(this.vehBody);
+    console.log(this.vehCap);
+    console.log(this.fueltank);
+    console.log(this.batterytype);
+    console.log(this.engineCap);
+    console.log(this.engNum);
+    console.log(this.chsNum);
+
     updateVehicleDetails({
         productId: this.recordId,
         vehBody: this.vehBody,
         vehCapa: this.vehCap,
-        vehAcc: this.AccTime,
-       vehFuelTank: this.fueltank,
+        vehFuelTank: this.fueltank,
         vehBattType: this.batterytype,
         vehEngCapacity: this.engineCap,
         engNum: this.engNum,
@@ -667,16 +715,16 @@ handleUpdate2() {
         );
     });
 }
-handleUpdate3() {
-   // alert('da3');
-//alert(this.recordId );
+handleUpdate3() 
+{
+ 
 uploadVehicleImages({
     productId: this.recordId,
-    vehmain:this.vehmain,
     vehImg1: this.vehImg1,
     vehImg2:this.vehImg2,
     vehImg3:this.vehImg3,
-    vehImg4: this.vehImg4
+    vehImg4: this.vehImg4,
+    vehmain:this.vehmain
 })
 .then(() => {
     this.dispatchEvent(
@@ -699,9 +747,21 @@ uploadVehicleImages({
    
 }
     
-    handleUpdate4() {
-       // alert('da4');
-    //alert(this.recordId );
+    handleUpdate4() 
+    {
+        console.log('Hello');
+        console.log(this.recordId);
+        console.log(this.ownerName);
+        console.log(this.ownerPhone);
+        console.log(this.ownerEmail);
+        console.log(this.preOwner);
+        console.log(this.owntype);
+        console.log(this.owneraddress);
+        console.log(this.ownerAdhar);
+        console.log(this.vehInsurance);
+        console.log(this.vehRTA);
+        console.log(this.vehBank);
+       
         
         updateOwnerDetails({ 
             productId: this.recordId,
@@ -709,12 +769,12 @@ uploadVehicleImages({
             ownerPhone: this.ownerPhone,
             ownerEmail: this.ownerEmail,
             preOwner: this.preOwner,
-            vehBank: this.vehBank,
-            vehInsurance: this.vehInsurance,
-            vehRTA: this.vehRTA,
             vehOwnType:this.owntype,
             owneraddress : this.owneraddress,
-            ownerAdhar : this.ownerAdhar
+            ownerAdhar : this.ownerAdhar,
+            vehInsurance: this.vehInsurance,
+            vehRTA: this.vehRTA,
+            vehBank: this.vehBank,
         })
         .then(() => {
             this.dispatchEvent(
@@ -752,10 +812,15 @@ uploadVehicleImages({
         );
     }
 
-    handleUpdate6() {
-     //   alert('da6');
-   // alert(this.recordId );
-        
+    handleUpdate6() 
+    {
+        console.log('Hello');
+        console.log(this.recordId);
+        console.log(this.serviceActive);
+        console.log(this.oemService);
+        console.log(this.serviceLD);
+        console.log(this.serviceND);
+     
         updateServicingDetails({ 
             productId: this.recordId,
             serActive:this.serviceActive, 
@@ -787,8 +852,12 @@ uploadVehicleImages({
 
     handleUpdate7() 
     {
-    //    alert('d7');
-   // alert(this.recordId );
+        console.log('Hello');
+        console.log(this.recordId);
+        console.log(this.subCount);
+        console.log(this.warrantyCount);
+        console.log(this.warStrartDate);
+        console.log(this.warEndDate);
         
         updateSubWarranty({ 
             productId: this.recordId,
@@ -873,7 +942,8 @@ uploadVehicleImages({
         this.file = event.target.files[0];
     }
 
-    uploadFile() {
+    uploadFile() 
+    {
         if (this.file) {
             const reader = new FileReader();
             reader.onloadend = () => {

@@ -7,16 +7,18 @@ import model from '@salesforce/schema/Product2.AM_Vehicle_Model__c';
 import Make_Year from '@salesforce/schema/Product2.AM_Make_Year__c';
 
 import insertVehicleRecord from '@salesforce/apex/VehiclequickcompController.insertVehicleRecord';
+
 import gotoVehicleRepairDetail from '@salesforce/apex/VehiclequickcompController.gotoVehicleRepairDetail';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'; 
 import { NavigationMixin } from 'lightning/navigation';
+
 export default class AMVehicleQuickComponent extends NavigationMixin(LightningElement) {
    @api options1 = [];
    @api options2 = [];
    @api options3 = [];
   
    @api recordId;
-   @track vehRepairId;
+   @track vehRepairId=false;
 
    @api vehBrand='';
    @api vehModel='';
@@ -30,6 +32,8 @@ export default class AMVehicleQuickComponent extends NavigationMixin(LightningEl
    @api vehVariant='';
    @api prfAmt='';
    @track purDate='';
+
+   @track repair=false;
 
    handleModelChange(event)
    {
@@ -51,6 +55,11 @@ export default class AMVehicleQuickComponent extends NavigationMixin(LightningEl
         this.vehBrand = value;
     } 
 
+   }
+   handleRepairRequired(event)
+   {
+        this.repair=event.target.checked;
+        console.log(this.repair);
    }
    handleFieldChange(event) {
    
@@ -82,12 +91,6 @@ export default class AMVehicleQuickComponent extends NavigationMixin(LightningEl
     }
     if (fieldName === 'prfAmt') {
         this.prfAmt = value;
-    } 
-    if (fieldName === 'vehRepairReq') {
-        this.vehRepairReq = event.target.checked;
-    } 
-    if (fieldName === 'vehActive') {
-        this.vehActive = event.target.checked;
     } 
     }
 
@@ -126,7 +129,7 @@ export default class AMVehicleQuickComponent extends NavigationMixin(LightningEl
         console.log(this.vehBrand);
         console.log(this.vehModel);
         console.log(this.makeYear);
-        console.log(this.vehRepairReq);
+        console.log(this.repair);
         console.log(this.purAmt);
         console.log(this.prfAmt);
         console.log(this.vehVariant);
@@ -134,24 +137,52 @@ export default class AMVehicleQuickComponent extends NavigationMixin(LightningEl
         console.log(this.purDate);
         console.log(this.kms);
 
+        insertVehicleRecord({vehName:this.vehResNum,vehBrand:this.vehBrand,vehModel:this.vehModel,vehMake:this.makeYear,vehRepair:this.repair,vehPurAmt:this.purAmt,prfAmt:this.prfAmt,vehVariant:this.vehVariant,vehPurDate:this.purDate,vehRegDate:this.vehRegDate,vehKms:this.kms})
 
-
-        insertVehicleRecord({vehName: this.vehResNum,vehBrand:this.vehBrand,vehModel:this.vehModel,
-        vehMake:this.makeYear,vehRepair:this.vehRepairReq,vehPurAmt:this.purAmt,prfAmt: this.prfAmt,
-        vehVariant:this.vehVariant,
-        vehPurDate:this.purDate,
-        vehRegDate: this.vehRegDate,
-        vehKms: this.kms})
-        .then(() => 
+        .then(result => 
         {
+            this.productid=result;
             // Display a success toast message
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'Vehicle Inserted successfully',
+                    message: 'Vehicle Inserted successfully '+ this.productid ,
                     variant: 'success',
                 })
             )
+
+
+            gotoVehicleRepairDetail({productId:this.productid})
+            .then(result => 
+                {
+                    this.repairedId=result;
+                    // Display a success toast message
+                    this.dispatchEvent
+                    (
+                        new ShowToastEvent({
+                            title: 'Success',
+                            message: 'Repair Inserted successfully '+ this.repairedId ,
+                            variant: 'success',
+                        })
+                    )
+        
+           
+                let compDefinition = {
+                    componentDef: "c:multiplerepairs",
+                    attributes: {
+                        repairId:this.repairedId
+                    }
+                };
+             
+                // Base64 encode the compDefinition JS object
+                let encodedCompDef = btoa(JSON.stringify(compDefinition));
+                this[NavigationMixin.Navigate]({
+                    type: "standard__webPage",
+                    attributes: {
+                        url: "/one/one.app#" + encodedCompDef
+                    }
+                });
+            })
         })
         .catch((error) => {
             this.dispatchEvent(
@@ -163,5 +194,22 @@ export default class AMVehicleQuickComponent extends NavigationMixin(LightningEl
             )
         });
 
+    }
+    goToVehicleQuickmain(){
+        let compDefinition = {
+            componentDef: "c:quickVehicleMainCmp",
+            attributes: {
+               
+            }
+        };
+     
+        // Base64 encode the compDefinition JS object
+        let encodedCompDef = btoa(JSON.stringify(compDefinition));
+        this[NavigationMixin.Navigate]({
+            type: "standard__webPage",
+            attributes: {
+                url: "/one/one.app#" + encodedCompDef
+            }
+        });
     }
 }
