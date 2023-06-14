@@ -54,7 +54,6 @@ export default class Alreadyvisitedcustomer extends NavigationMixin(LightningEle
    
     handleShowModal(event)
     {
-        this.isShowModal2 = false;
          getPhoneNum({ph:this.input})
 
         .then(result => {

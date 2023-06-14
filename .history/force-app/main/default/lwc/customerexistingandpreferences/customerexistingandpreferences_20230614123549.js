@@ -12,7 +12,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 export default class Alreadyvisitedcustomer extends NavigationMixin(LightningElement) {
 
    
-         @track isShowModal2=true ;
+         @track isShowModal1=true ;
    
 
      
@@ -54,7 +54,6 @@ export default class Alreadyvisitedcustomer extends NavigationMixin(LightningEle
    
     handleShowModal(event)
     {
-        this.isShowModal2 = false;
          getPhoneNum({ph:this.input})
 
         .then(result => {
@@ -98,13 +97,8 @@ export default class Alreadyvisitedcustomer extends NavigationMixin(LightningEle
         this.dispatchEvent(actionEvent);
     }
   
-    @api hideModalBox2() {  
-        this.isShowModal2 = false;
-        const selectedOption = '';
-        const actionEvent = new CustomEvent('action', {
-          detail: selectedOption
-        });
-        this.dispatchEvent(actionEvent);
+    hideModalBox1() {  
+        this.isShowModal1 = false;
     }
     
     handlekick()

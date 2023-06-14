@@ -71,19 +71,19 @@
                 <lightning-record-edit-form object-api-name="Account" record-id={dataid}>
 
 
-                  <div class="slds-grid slds-wrap slds-align_absolute-center" style="background:rgb(255, 255, 255);  ">
+                  <div class="slds-grid slds-wrap" style="background:rgb(255, 255, 255);  ">
                     <div >
-                      <b> <lightning-output-field field-name="Name" style="width: 150px;"></lightning-output-field></b>
+                      <b> <lightning-output-field field-name="Name" style="width: 250px;"></lightning-output-field></b>
                     </div>
                     <div >
-                      <b><lightning-input-field field-name="Phone" style="width: 150px;"> </lightning-input-field></b>
+                      <b><lightning-input-field field-name="Phone" style="width: 250px;"> </lightning-input-field></b>
                     </div>
                   </div>
                   <br />
                   <br />
 
                 </lightning-record-edit-form>
-               
+             
 
                        <template for:each={itemList} for:item="item" for:index="index">
 
@@ -93,15 +93,8 @@
                                <lightning-messages> </lightning-messages>
 
                                <lightning-layout multiple-rows>
-                                
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
-                                 <lightning-layout-item padding="around_x-small" size="7" small-device-size="12" medium-device-size="2">
+                                   
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      <lightning-layout-item padding="around_x-small" size="7" small-device-size="12" medium-device-size="2">
                                     <label for="subcat"><b>Brand</b></label>&nbsp;
                                        <lightning-input-field class="subcat" fieldid="subcat" field-name="AM_Brand__c" variant="label-hidden"></lightning-input-field>
                                        
@@ -153,7 +146,7 @@
 
                        </template>
 
-                      
+                   
 
                        <div class="savebtn">
 
