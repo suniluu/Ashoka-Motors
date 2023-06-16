@@ -22,8 +22,6 @@ export default class Customerregandpref extends NavigationMixin(LightningElement
     @api newcustid;
     @track selectedValue;
     keyIndex = 0;
-    @track error;
-   
 
 
 
@@ -117,7 +115,6 @@ export default class Customerregandpref extends NavigationMixin(LightningElement
     
     handleNavigation() {
        
-       
         let compDefinition = {
             componentDef: "c:disaplaycars",
             attributes: 
@@ -190,46 +187,37 @@ export default class Customerregandpref extends NavigationMixin(LightningElement
 
     }
     CreateRec() {
-        
 
 
 
         InsertCustomerRec({ lastname: this.lastname, phone: this.phone, email: this.Email })
             .then(result => {
                 this.newcustid = result;
-               
-                
-                if(this.newcustid !== undefined) {
-                   
-                    this.currentStep = "2";
-                }
-               
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Success',
-                        
                         message: 'Record Created successfully.',
                         variant: 'success'
                     })
                 );
-                
             })
             .catch(error => {
-               
-                console.log(error);
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Error',
-                        message: 'Error Created record: ' + 'Name field should not be empty & First letter should be in Caps',
+                        message: 'Error Created record: ' + error,
                         variant: 'error'
                     })
                 );
-               
-                
-                
             });
-          
-        
+                
+
+
+            
+            if (this.currentStep === "1") {
+                this.currentStep = "2";
+            }
+            
         }
     
     handleChange(event) {

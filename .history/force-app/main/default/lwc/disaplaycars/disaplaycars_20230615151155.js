@@ -303,7 +303,7 @@ export default class Testdependentpicklist extends NavigationMixin(LightningElem
   
   handlecorousalnav(event) 
   {
-    
+    alert('uday');
     for (const value of this.selectedIds)
      {
       alert(value);
@@ -376,7 +376,7 @@ this.date=str_op;
     const selectedSwatch = event.target.closest('.slds-color-picker__swatch');
     if (selectedSwatch) {
       this.searchcolor = selectedSwatch.dataset.color;
-       
+        alert(this.searchcolor);
         console.log('Selected color:', color);
         // Perform any other actions with the selected color
     }

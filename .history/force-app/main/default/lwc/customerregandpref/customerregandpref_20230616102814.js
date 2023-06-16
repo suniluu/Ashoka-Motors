@@ -220,7 +220,7 @@ export default class Customerregandpref extends NavigationMixin(LightningElement
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Error',
-                        message: 'Error Created record: ' + 'Name field should not be empty & First letter should be in Caps',
+                        message: 'Error Created record: ' + 'The first letter of name should be in caps',
                         variant: 'error'
                     })
                 );

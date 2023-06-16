@@ -116,7 +116,7 @@ export default class Customerregandpref extends NavigationMixin(LightningElement
     }
     
     handleNavigation() {
-       
+        alert(this.newcustid);
        
         let compDefinition = {
             componentDef: "c:disaplaycars",
@@ -190,7 +190,6 @@ export default class Customerregandpref extends NavigationMixin(LightningElement
 
     }
     CreateRec() {
-        
 
 
 
@@ -199,11 +198,6 @@ export default class Customerregandpref extends NavigationMixin(LightningElement
                 this.newcustid = result;
                
                 
-                if(this.newcustid !== undefined) {
-                   
-                    this.currentStep = "2";
-                }
-               
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Success',
@@ -220,15 +214,20 @@ export default class Customerregandpref extends NavigationMixin(LightningElement
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Error',
-                        message: 'Error Created record: ' + 'Name field should not be empty & First letter should be in Caps',
+                        message: 'Error Created record: ' + error[0],
                         variant: 'error'
                     })
                 );
                
-                
-                
+                alert(this.newcustid);
+                if(this.newcustid!==undefined) {
+               
+                   this.currentStep = "2";
+               }
+               
             });
-          
+         
+             
         
         }
     
